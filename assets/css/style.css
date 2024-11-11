@@ -1,0 +1,145 @@
+/* Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Encabezado */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 10;
+}
+
+.logo img {
+    height: 70px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.register-btn {
+    background-color: #ff7f50;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 20px; /* Aumenta el espacio entre el botón de registro y el icono de usuario */
+}
+
+.user-icon i {
+    color: #00bcd4;
+    font-size: 35px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+/* Hero (Carrusel) */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 550px; 
+    overflow: hidden;
+    text-align: center;
+    color: #fff;
+    margin-top: 0; /* Elimina cualquier margen superior */
+}
+
+.carousel-images img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-images {
+    display: flex;
+    width: 300%; /* Asegura que haya suficiente espacio para las imágenes */
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+}
+
+
+.hero-content {
+    position: absolute;
+    top: 50%;
+    left: 0; /* Asegura que el contenido esté pegado al margen izquierdo */
+    transform: translateY(-50%); /* Ajusta verticalmente sin moverlo horizontalmente */
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    color: #fff;
+    max-width: 500px; /* Controla el ancho del contenedor */
+    margin-left: 20px; /* Ajusta la separación respecto al borde izquierdo */
+}
+
+
+.hero-content h1 {
+    font-size: 2.5em;
+    color: #fff;
+}
+
+.hero-content p {
+    margin: 10px 0;
+}
+
+.cta-button {
+    background-color: #ff7f50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Features section */
+.features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
+    background-color: #1a1a1a;
+}
+
+.feature-card {
+    background-color: #444;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 150px;
+}
+
+.feature-card p {
+    margin-top: 10px;
+    font-size: 1em;
+}
+
