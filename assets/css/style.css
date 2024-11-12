@@ -40,7 +40,8 @@ header {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-right: 20px; /* Aumenta el espacio entre el botón de registro y el icono de usuario */
+    margin-right: 20px;
+    /* Aumenta el espacio entre el botón de registro y el icono de usuario */
 }
 
 .user-icon i {
@@ -52,51 +53,52 @@ header {
     justify-content: center;
 }
 
-
-
-/* Hero (Carrusel) */
 .hero {
     position: relative;
     width: 100%;
-    height: 550px; 
+    height: 650px; /* Altura fija del contenedor */
     overflow: hidden;
     text-align: center;
-    color: #fff;
-    margin-top: 0; /* Elimina cualquier margen superior */
+    background-color: #333;
+}
+
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 650px; /* Altura fija del contenedor */
+    overflow: hidden; /* Oculta las imágenes desbordadas */
+    background-color: #333;
+}
+
+.carousel-images {
+    display: flex;
+    width: 100%; 
+    transition: transform 0.5s ease-in-out;
 }
 
 .carousel-images img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-}
-
-
-.carousel {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.carousel-images {
-    display: flex;
-    width: 300%; /* Asegura que haya suficiente espacio para las imágenes */
-    height: 100%;
-    transition: transform 0.5s ease-in-out;
+    object-fit: contain;
+    flex-shrink: 0; /* Previene que las imágenes se reduzcan */
 }
 
 
 .hero-content {
     position: absolute;
     top: 50%;
-    left: 0; /* Asegura que el contenido esté pegado al margen izquierdo */
-    transform: translateY(-50%); /* Ajusta verticalmente sin moverlo horizontalmente */
+    left: 0;
+    /* Asegura que el contenido esté pegado al margen izquierdo */
+    transform: translateY(-50%);
+    /* Ajusta verticalmente sin moverlo horizontalmente */
     background-color: rgba(0, 0, 0, 0.5);
     padding: 20px;
     border-radius: 10px;
     color: #fff;
-    max-width: 500px; /* Controla el ancho del contenedor */
-    margin-left: 20px; /* Ajusta la separación respecto al borde izquierdo */
+    max-width: 500px;
+    /* Controla el ancho del contenedor */
+    margin-left: 20px;
+    /* Ajusta la separación respecto al borde izquierdo */
 }
 
 
@@ -136,6 +138,7 @@ header {
     border-radius: 10px;
     text-align: center;
     width: 150px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .feature-card p {
@@ -143,3 +146,27 @@ header {
     font-size: 1em;
 }
 
+
+.feature-card:hover {
+    transform: scale(1.05);
+    background-color: #555;
+}
+
+
+
+
+@media (max-width: 768px) {
+    .features {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-content {
+        max-width: 100%;
+        margin-left: 0;
+    }
+
+    .cta-button {
+        width: 100%;
+    }
+}
