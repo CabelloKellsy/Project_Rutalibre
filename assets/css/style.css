@@ -53,22 +53,14 @@ header {
     justify-content: center;
 }
 
-.hero {
-    position: relative;
-    width: 100%;
-    height: 650px; /* Altura fija del contenedor */
-    overflow: hidden;
-    text-align: center;
-    background-color: #333;
-}
-
 .carousel {
     position: relative;
     width: 100%;
-    height: 650px; /* Altura fija del contenedor */
-    overflow: hidden; /* Oculta las imágenes desbordadas */
+    height: 100vh; /* Ocupa toda la altura de la ventana */
+    overflow: hidden;
     background-color: #333;
 }
+
 
 .carousel-images {
     display: flex;
@@ -79,36 +71,72 @@ header {
 .carousel-images img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    flex-shrink: 0; /* Previene que las imágenes se reduzcan */
+    object-fit: cover; /* Asegura que la imagen llene el contenedor completamente */
+    flex-shrink: 0;
 }
 
+.hero {
+    position: relative;
+    width: 100%;
+    height: 750px; /* Altura fija del contenedor */
+    overflow: hidden;
+    background-color: #33333350;
+}
 
+/* Capa oscura sobre la imagen */
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.205); /* Capa oscura semi-transparente */
+    z-index: 1; 
+}
+
+.carousel-images {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-images img {
+    width: 100%;
+    height: 100%;
+    object-fit:contained;
+}
+
+/* Estilo del contenido en el hero */
 .hero-content {
     position: absolute;
-    top: 50%;
-    left: 0;
-    /* Asegura que el contenido esté pegado al margen izquierdo */
-    transform: translateY(-50%);
-    /* Ajusta verticalmente sin moverlo horizontalmente */
-    background-color: rgba(0, 0, 0, 0.5);
+    top: 50%; /* Ajusta la posición vertical */
+    left: 0; /* Alinea al borde izquierdo */
+    background-color: #0000008e;
     padding: 20px;
-    border-radius: 10px;
-    color: #fff;
-    max-width: 500px;
-    /* Controla el ancho del contenedor */
-    margin-left: 20px;
-    /* Ajusta la separación respecto al borde izquierdo */
+    border-radius: 0 8px 8px 0; /* Bordes redondeados en el lado derecho y las esquinas inferiores */
+    color: #000;
+    max-width: 50%; /* Ajusta el ancho del contenido */
+    box-sizing: border-box;
+    padding: 35px;
+    z-index: 2; /* Asegura que el contenido esté encima de la capa oscura */
 }
-
 
 .hero-content h1 {
     font-size: 2.5em;
     color: #fff;
+    margin-bottom: 10px;
+}
+
+.hero-content h2 {
+    font-size: 1.5em;
+    color: #fff;
+    margin-bottom: 10px;
 }
 
 .hero-content p {
     margin: 10px 0;
+    line-height: 1.5; /* Mejora la legibilidad */
+    color: #fff;
 }
 
 .cta-button {
@@ -120,53 +148,505 @@ header {
     font-size: 1em;
     cursor: pointer;
     margin-top: 10px;
+    display: inline-block;
 }
 
 /* Features section */
+
+.features-section {
+    position: relative; /* Permite la posición relativa para los elementos dentro */
+    padding: 60px 20px;
+    background-color: #e9e9e9;
+    text-align: center;
+}
+
+
+h2 {
+    position: relative; /* Permite que el título esté por encima de la imagen */
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    z-index: 1; /* Asegura que el título esté encima de la imagen */
+}
+
+
+.titulo-oscuro{
+    color: #0a0909;
+    
+}
+
+.titulo-oscuro::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: 35%;
+    height: 100%;
+    transform: translateX(-50%);
+    background-color: #ff7f50; /* Color fosforescente */
+    opacity: 0.6; /* Le da una opacidad para simular el efecto de resaltado */
+    z-index: -1; /* Coloca el fondo detrás del texto */
+    padding: 0 10px; /* Espacio adicional alrededor del texto */
+    border-radius: 4px; /* Bordes redondeados para un efecto suave */
+}
+
+.title-decoration {
+    position: absolute; /* Posiciona la imagen en relación a .features-section */
+    top: 10px; /* Ajusta la posición vertical para superponerla al título */
+    left: 30%; /* Centra horizontalmente la imagen */
+    transform: translateX(140%); /* Ajuste para centrar la imagen en el contenedor */
+    width: 400px; /* Ajusta el tamaño de la imagen */
+    height: auto;
+    z-index: 0; /* Coloca la imagen detrás del título */
+    opacity: 0.8; /* Ajusta la opacidad si deseas */
+}
+
+
 .features {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-    background-color: #1a1a1a;
+    padding: 20px;
 }
 
 .feature-card {
-    background-color: #444;
+    background-color:  #ffffff;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
-    width: 150px;
     transition: transform 0.3s ease, background-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.icon-circle {
+    background-color: #00bcd4;
+    border-radius: 50%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.icon-circle .icon {
+    font-size: 2em;
+    color: #fff;
+}
+
+.feature-card h3 {
+    font-size: 1.25em;
+    color: #0e0c0c;
+    margin-bottom: 10px;
 }
 
 .feature-card p {
-    margin-top: 10px;
-    font-size: 1em;
+    color: #0c0c0c;
+    margin-bottom: 15px;
+    line-height: 1.4;
 }
 
+.more-info-btn {
+    background-color: #ff7f50;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.2em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    margin-left: 0; /* Elimina cualquier margen izquierdo adicional */
+    align-self: flex-end; /* Alinea el botón a la izquierda en el contenedor */
+}
+
+
+.more-info-btn:hover {
+    background-color: #ff7f50;
+}
 
 .feature-card:hover {
     transform: scale(1.05);
-    background-color: #555;
+    background-color: #b1b1b1;
+}
+
+
+/* Sección principal de características */
+.feature-details {
+    padding: 0;
+    background-color: #a8e3eb;
+}
+
+/* Sección individual de cada característica */
+.feature-detail {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centra el contenido dentro de cada sección */
+    gap: 20px;
+    padding: 60px 40px; /* Espacio interno amplio */
+    border-radius: 0;
+    margin: 0;
+    width: 100%;
+}
+
+/* Fondo blanco para secciones pares */
+.feature-detail:nth-child(even) {
+    
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* Fondo oscuro para secciones impares */
+.feature-detail:nth-child(odd) {
+    background-color: #e6e6e6;
+    color: #333;
+}
+
+/* Imagen más pequeña y centrada */
+.feature-image {
+    width: 30%; /* Reduce el tamaño de la imagen */
+    height: auto;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 4px solid #00BCD4; /* Borde azul */
+}
+
+/* Contenedor de texto centrado y más compacto */
+.feature-text {
+    width: 50%; /* Ajusta el ancho del texto */
+    padding: 10px 20px;
+    text-align: left; /* Centra el texto */
+}
+
+/* Estilo del título */
+.feature-detail h3 {
+    font-size: 2em;
+    color: #ff7f50;
+    margin-bottom: 20px;
+}
+
+/* Estilo del párrafo */
+.feature-detail p {
+    font-size: 1.1em;
+    line-height: 1.8;
+}
+
+/* Invierte el orden para las secciones con la clase 'reverse' */
+.feature-detail.reverse {
+    flex-direction: row-reverse;
+}
+
+
+.map-section {
+    position: relative;
+    padding: 60px 20px;
+    background-color: #ffffff;
+    overflow: hidden;
+    text-align: center;
+}
+
+.map-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/images/fondomap.webp'); /* Ruta de la imagen de fondo */
+    background-size: 700px 700px; /* Tamaño más pequeño para repetición */
+    background-repeat: repeat;
+    opacity: 0.4; /* Ajusta la transparencia del fondo */
+    z-index: 1;
+}
+
+.map-section::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8); /* Capa blanca semitransparente */
+    z-index: 2;
+}
+
+.map-container,
+.titulo-oscuro,
+.map-section p {
+    position: relative;
+    z-index: 3; /* Asegura que el contenido esté por encima de las capas */
+}
+
+
+.map-section p {
+    color: #0a0909; /* Párrafo en negro */
+    font-size: 1.1em;
+    margin-bottom: 20px;
+}
+
+/* Estilo del contenedor del mapa */
+.map-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#map {
+    width: 70%;
+    height: 600px;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 
 
+#back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    background-color: #ff7f50;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
+.faq-container {
+    display: flex;
+    width: 100%;
+    height: 70vh;
+
+}
+
+.faq-content {
+    flex: 1;
+    padding: 40px;
+    background-color: #333333;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.faq-title {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.faq-title span {
+    color: #00bcd4;
+}
+
+.faq-item {
+    margin-bottom: 20px;
+    background-color: #f5f5f5; /* Fondo más oscuro para cada pregunta */
+    padding: 15px 20px; /* Espacio alrededor del texto */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para dar efecto de elevación */
+    transition: background-color 0.3s ease; /* Efecto de transición en el color */
+}
+
+.faq-item h3 {
+    font-size: 1.2em;
+    color: #ff7f50;
+    cursor: pointer;
+    margin: 0;
+}
+
+.faq-item p {
+    display: none;
+    padding-left: 10px;
+    color: #000000;
+    margin-top: 10px; /* Espacio superior para el texto de la respuesta */
+}
+
+/* Para mostrar la respuesta al hacer clic */
+.faq-item.active p {
+    display: block;
+}
+
+
+.faq-image {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333; /* Color de fondo oscuro */
+}
+
+.faq-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* Footer*/
+.site-footer {
+    background-color: #E6E6E6;
+    color: #333;
+    padding-top: 30px;
+    text-align: left;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.footer-about,
+.footer-links,
+.footer-social,
+.footer-account {
+    flex: 1;
+    margin: 10px;
+}
+
+.footer-about h2,
+.footer-links h3,
+.footer-social h3,
+.footer-account h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links ul li a {
+    color: #333;
+    text-decoration: none;
+    font-size: 0.9em; /* Tamaño de letra reducido */
+    margin-bottom: 5px;
+    display: block;
+}
+
+.footer-social .social-icons a {
+    color: #333;
+    font-size: 1.2em;
+    margin-right: 15px;
+}
+
+.footer-hours {
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+
+
+/* Estilo de botones */
+.footer-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    font-size: 0.9em; /* Tamaño de letra ajustado */
+    text-align: center;
+}
+
+.footer-button.connect {
+    background-color: #ff7f50;
+}
+
+.footer-button.register {
+    background-color: #00bcd4; /* Azul para el botón de registro */
+    margin-top: 5px;
+}
+
+.footer-button:hover {
+    opacity: 0.9;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between; /* Distribuye elementos a izquierda y derecha */
+    align-items: center;
+    padding: 10px 20px;
+    font-size: 0.9em;
+    background-color: #e6e6e6; /* Fondo gris claro */
+    border-top: 1px solid #d3d3d3;
+}
+
+.footer-bottom-social {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-bottom-social a {
+    color: #333;
+    font-size: 1.2em;
+    text-decoration: none;
+}
+
+.footer-bottom p {
+    margin: 0;
+    color: #333;
+    text-align: right; /* Alinea el texto de derechos reservados a la derecha */
+}
+
+
+
+/* Ajustes para pantallas pequeñas */
 @media (max-width: 768px) {
-    .features {
+    .feature-detail {
+        flex-direction: column;
+        padding: 40px 20px;
+    }
+    .feature-image, .feature-text {
+        width: 100%; /* Cada elemento ocupa el ancho completo en pantallas pequeñas */
+    }
+    .features-title {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+
+    .faq-container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .faq-image {
+        height: 300px; /* Ajusta la altura en pantallas pequeñas */
+    }
+
+    .faq-image img {
+        width: 100%; /* Asegura que la imagen se ajuste a la pantalla en dispositivos pequeños */
+    }
+
+    .footer-container {
         flex-direction: column;
         align-items: center;
+        text-align: center;
     }
 
-    .hero-content {
-        max-width: 100%;
-        margin-left: 0;
+    .footer-about,
+    .footer-links,
+    .footer-social,
+    .footer-account {
+        margin: 20px 0;
     }
 
-    .cta-button {
-        width: 100%;
+    .footer-social .social-icons {
+        justify-content: center;
     }
+
 }
