@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de viajes </title>
+</head>
+<body>
+    <h1>Lista de Viajes</h1>
+    <ul id="viajes"></ul>
+
+    <script>
+        fetch('../bd/viajes.php')
+        .then(response => {
+            if(!response.ok){
+                throw new Error('Error en la respuesta')
+            }
+            return response.json();
+        }).then(data => {
+            if(data.error){
+                console.error('Error desde el servidor:', data.error);
+                return;
+            }
+            const viajesList = document.createElement('table');
+            viajesList.id = 'viajes';
+            viajesList.innerHTML += `<tr><th>Id Viaje</th><th>Nombre Viaje</th><th>Fecha Inicio</th><th>Fecha Final</th><th>Presupuesto Base</th><th>Estado</th></tr>`;
+            //mostrar los viajes en una lista
+            data.forEach(viaje => {
+                const tr = document.createElement('tr');
+                tr.innerHTML += `<td>${viaje.id_viaje}</td><td>${viaje.nombre_viaje}</td><td>${viaje.fecha_inicio}</td><td>${viaje.fecha_final}</td><td>${viaje.presupuesto_base}</td><td>${viaje.estado}</td>`;
+                viajesList.appendChild(tr);
+            });
+            document.body.appendChild(viajesList);
+        })
+        .catch(error => {
+            if(error.message.includes('Unexpected token')){
+                console.error('Error: La respuesta no es un JSON válido');
+            } else {
+                console.error('Error:', error.message);
+            }
+        });
+
+    </script>
+</body>
+</html>

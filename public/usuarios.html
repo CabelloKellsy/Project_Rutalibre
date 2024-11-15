@@ -10,7 +10,7 @@
     <ul id="usuarios"></ul>
 
     <script>
-        fetch('bd/api.php')
+        fetch('../bd/api.php')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Error en la respuesta de la red');
@@ -22,21 +22,25 @@
                     console.error('Error desde el servidor:', data.error);
                     return;
                 }
-                const usuariosList = document.getElementById('usuarios');
+                const usuariosTable = document.createElement('table');
+                usuariosTable.id = 'usuarios';
+                usuariosTable.innerHTML += `<tr><th>Id Usuario</th><th>Nombre</th><th>Apellido</th><th>Email</th><th>Fecha Creaci n</th><th>Tipo de Usuario</th></tr>`;
                 //mostrar los usuarios en una lista
                 data.forEach(usuario => {
-                    const li = document.createElement('li');
-                    li.textContent = usuario.nombre;
-                    usuariosList.appendChild(li);
+                    const tr = document.createElement('tr');
+                    tr.innerHTML += `<td>${usuario.id_usuario}</td><td>${usuario.nombre}</td><td>${usuario.apellido}</td><td>${usuario.email}</td><td>${usuario.fecha_creacion}</td><td>${usuario.tipo_usuario}</td>`;
+                    usuariosTable.appendChild(tr);
                 });
+                document.body.appendChild(usuariosTable);
             })
             .catch(error => {
                 if (error.message.includes('Unexpected token')) {
-                    console.error('Error: La respuesta no es un JSON válido');
+                    console.error('Error: La respuesta no es un JSON v lido');
                 } else {
                     console.error('Error:', error.message);
                 }
             });
+
     </script>
 </body>
 </html>

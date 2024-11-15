@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Usuarios</title>
+</head>
+<body>
+    <h1>Lista de Grupos</h1>
+    <ul id="usuarios"></ul>
+
+    <script>
+        fetch('../bd/grupos.php')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la respuesta de la red');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    console.error('Error desde el servidor:', data.error);
+                    return;
+                }
+                const gruposTable = document.createElement('table');
+                gruposTable.id = 'grupos';
+                gruposTable.innerHTML += `<tr><th>Id Grupo</th><th>Nombre del Grupo</th><th>Integrantes</th><th>Estado</th><th>Descripción</th><th>Id Viaje Asociado</th></tr>`;
+                //mostrar los grupos en una lista
+                data.forEach(grupo => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML += `<td>${grupo.id_grupo}</td><td>${grupo.nombre_grupo}</td><td>${grupo.integrantes}</td><td>${grupo.estado}</td><td>${grupo.descripcion}</td><td>${grupo.viajes_id_viajes}</td>`;
+                    gruposTable.appendChild(tr);
+                });
+                document.body.appendChild(gruposTable);
+            })
+            .catch(error => {
+                if (error.message.includes('Unexpected token')) {
+                    console.error('Error: La respuesta no es un JSON válido');
+                } else {
+                    console.error('Error:', error.message);
+                }
+            });
+
+    </script>
+</body>
+</html>
