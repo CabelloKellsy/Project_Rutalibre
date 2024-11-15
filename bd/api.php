@@ -2,7 +2,6 @@
 // ini_set('display_errors', 0); // Desactiva la visualización de errores
 // error_reporting(E_ALL); // Reporta todos los errores
 
-
 header('Content-Type: application/json'); // Establece el tipo de contenido a JSON
 include 'connection.php'; // llamar el archivo de conexión
 
