@@ -11,6 +11,156 @@ body {
     color: #fff;
 }
 
+/*login */
+/* Fondo de la página de login y registro */
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url('../images/fondo_login.webp'); /* Ajusta la ruta de la imagen */
+    background-size: cover;
+    background-position: center;
+}
+
+/* Caja de login y registro centrada con fondo oscuro semi-transparente */
+.auth-box {
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro semi-transparente */
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    color: #fff; /* Texto en color blanco */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+}
+
+/* Estilo de input con fondo blanco */
+.auth-box input[type="text"],
+.auth-box input[type="email"],
+.auth-box input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #fff; /* Fondo blanco */
+    color: #333; /* Texto en color oscuro */
+}
+
+/* Color del texto de los placeholders */
+.auth-box input::placeholder {
+    color: #888; /* Placeholder en gris */
+    opacity: 1;
+}
+
+/* Botón principal */
+.auth-box button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff7f50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 10px;
+}
+
+.auth-box button:hover {
+    background-color: #ff6530;
+}
+
+/* Estilo de los enlaces */
+.auth-box a {
+    color: #00bcd4;
+    text-decoration: none;
+}
+
+.auth-box a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo del contenedor "Recuérdame" */
+.remember-me-container {
+    text-align: left;
+    margin-top: 10px;
+    color: #fff;
+}
+
+/* Estilo para el enlace de "¿Olvidaste tu contraseña?" */
+.forgot-password {
+    display: block;
+    margin-top: 10px;
+    color: #00bcd4;
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+/* Estilo para el párrafo de registro */
+.register-prompt {
+    margin-top: 20px;
+    color: #fff;
+    text-align: center;
+}
+
+/* Estilo para el enlace de registro "Regístrate" */
+.register-link {
+    color: #00bcd4;
+    text-decoration: none;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
+
+/* Estilo del grupo de inputs y sus iconos */
+.input-group {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    margin: 10px 0;
+    border: 1px solid #ccc; /* Borde claro */
+}
+
+.input-group .input-group-text {
+    padding: 10px;
+    background-color: transparent;
+    color: #fff; /* Ícono en color blanco */
+}
+
+.input-group .form-control {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background-color: transparent;
+    color: #333; /* Texto en color oscuro */
+}
+
+/* Estilo del contenedor del checkbox */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    margin: 15px 0;
+}
+
+.checkbox-container label a {
+    color: #00bcd4;
+    text-decoration: none;
+}
+
+.checkbox-container label a:hover {
+    text-decoration: underline;
+}
+
+
+
 /* Encabezado */
 header {
     display: flex;
@@ -22,6 +172,10 @@ header {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: relative;
     z-index: 10;
+}
+
+.header-right a {
+    text-decoration: none;
 }
 
 .logo img {
@@ -56,7 +210,8 @@ header {
 .carousel {
     position: relative;
     width: 100%;
-    height: 100vh; /* Ocupa toda la altura de la ventana */
+    height: 100vh;
+    /* Ocupa toda la altura de la ventana */
     overflow: hidden;
     background-color: #333;
 }
@@ -64,21 +219,23 @@ header {
 
 .carousel-images {
     display: flex;
-    width: 100%; 
+    width: 100%;
     transition: transform 0.5s ease-in-out;
 }
 
 .carousel-images img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Asegura que la imagen llene el contenedor completamente */
+    object-fit: cover;
+    /* Asegura que la imagen llene el contenedor completamente */
     flex-shrink: 0;
 }
 
 .hero {
     position: relative;
     width: 100%;
-    height: 750px; /* Altura fija del contenedor */
+    height: 750px;
+    /* Altura fija del contenedor */
     overflow: hidden;
     background-color: #33333350;
 }
@@ -91,8 +248,9 @@ header {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.205); /* Capa oscura semi-transparente */
-    z-index: 1; 
+    background-color: rgba(0, 0, 0, 0.205);
+    /* Capa oscura semi-transparente */
+    z-index: 1;
 }
 
 .carousel-images {
@@ -103,22 +261,27 @@ header {
 .carousel-images img {
     width: 100%;
     height: 100%;
-    object-fit:contained;
+    object-fit: contained;
 }
 
 /* Estilo del contenido en el hero */
 .hero-content {
     position: absolute;
-    top: 50%; /* Ajusta la posición vertical */
-    left: 0; /* Alinea al borde izquierdo */
+    top: 50%;
+    /* Ajusta la posición vertical */
+    left: 0;
+    /* Alinea al borde izquierdo */
     background-color: #0000008e;
     padding: 20px;
-    border-radius: 0 8px 8px 0; /* Bordes redondeados en el lado derecho y las esquinas inferiores */
+    border-radius: 0 8px 8px 0;
+    /* Bordes redondeados en el lado derecho y las esquinas inferiores */
     color: #000;
-    max-width: 50%; /* Ajusta el ancho del contenido */
+    max-width: 50%;
+    /* Ajusta el ancho del contenido */
     box-sizing: border-box;
     padding: 35px;
-    z-index: 2; /* Asegura que el contenido esté encima de la capa oscura */
+    z-index: 2;
+    /* Asegura que el contenido esté encima de la capa oscura */
 }
 
 .hero-content h1 {
@@ -135,7 +298,8 @@ header {
 
 .hero-content p {
     margin: 10px 0;
-    line-height: 1.5; /* Mejora la legibilidad */
+    line-height: 1.5;
+    /* Mejora la legibilidad */
     color: #fff;
 }
 
@@ -154,7 +318,8 @@ header {
 /* Features section */
 
 .features-section {
-    position: relative; /* Permite la posición relativa para los elementos dentro */
+    position: relative;
+    /* Permite la posición relativa para los elementos dentro */
     padding: 60px 20px;
     background-color: #e9e9e9;
     text-align: center;
@@ -162,18 +327,20 @@ header {
 
 
 h2 {
-    position: relative; /* Permite que el título esté por encima de la imagen */
+    position: relative;
+    /* Permite que el título esté por encima de la imagen */
     font-size: 2.5em;
     margin-bottom: 10px;
     font-weight: bold;
     letter-spacing: 1px;
-    z-index: 1; /* Asegura que el título esté encima de la imagen */
+    z-index: 1;
+    /* Asegura que el título esté encima de la imagen */
 }
 
 
-.titulo-oscuro{
+.titulo-oscuro {
     color: #0a0909;
-    
+
 }
 
 .titulo-oscuro::before {
@@ -183,22 +350,34 @@ h2 {
     width: 35%;
     height: 100%;
     transform: translateX(-50%);
-    background-color: #ff7f50; /* Color fosforescente */
-    opacity: 0.6; /* Le da una opacidad para simular el efecto de resaltado */
-    z-index: -1; /* Coloca el fondo detrás del texto */
-    padding: 0 10px; /* Espacio adicional alrededor del texto */
-    border-radius: 4px; /* Bordes redondeados para un efecto suave */
+    background-color: #ff7f50;
+    /* Color fosforescente */
+    opacity: 0.6;
+    /* Le da una opacidad para simular el efecto de resaltado */
+    z-index: -1;
+    /* Coloca el fondo detrás del texto */
+    padding: 0 10px;
+    /* Espacio adicional alrededor del texto */
+    border-radius: 4px;
+    /* Bordes redondeados para un efecto suave */
 }
 
 .title-decoration {
-    position: absolute; /* Posiciona la imagen en relación a .features-section */
-    top: 10px; /* Ajusta la posición vertical para superponerla al título */
-    left: 30%; /* Centra horizontalmente la imagen */
-    transform: translateX(140%); /* Ajuste para centrar la imagen en el contenedor */
-    width: 400px; /* Ajusta el tamaño de la imagen */
+    position: absolute;
+    /* Posiciona la imagen en relación a .features-section */
+    top: 10px;
+    /* Ajusta la posición vertical para superponerla al título */
+    left: 30%;
+    /* Centra horizontalmente la imagen */
+    transform: translateX(140%);
+    /* Ajuste para centrar la imagen en el contenedor */
+    width: 400px;
+    /* Ajusta el tamaño de la imagen */
     height: auto;
-    z-index: 0; /* Coloca la imagen detrás del título */
-    opacity: 0.8; /* Ajusta la opacidad si deseas */
+    z-index: 0;
+    /* Coloca la imagen detrás del título */
+    opacity: 0.8;
+    /* Ajusta la opacidad si deseas */
 }
 
 
@@ -210,7 +389,7 @@ h2 {
 }
 
 .feature-card {
-    background-color:  #ffffff;
+    background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
@@ -262,8 +441,10 @@ h2 {
     margin-top: 10px;
     transition: background-color 0.3s ease;
     cursor: pointer;
-    margin-left: 0; /* Elimina cualquier margen izquierdo adicional */
-    align-self: flex-end; /* Alinea el botón a la izquierda en el contenedor */
+    margin-left: 0;
+    /* Elimina cualquier margen izquierdo adicional */
+    align-self: flex-end;
+    /* Alinea el botón a la izquierda en el contenedor */
 }
 
 
@@ -287,9 +468,11 @@ h2 {
 .feature-detail {
     display: flex;
     align-items: center;
-    justify-content: center; /* Centra el contenido dentro de cada sección */
+    justify-content: center;
+    /* Centra el contenido dentro de cada sección */
     gap: 20px;
-    padding: 60px 40px; /* Espacio interno amplio */
+    padding: 60px 40px;
+    /* Espacio interno amplio */
     border-radius: 0;
     margin: 0;
     width: 100%;
@@ -297,7 +480,7 @@ h2 {
 
 /* Fondo blanco para secciones pares */
 .feature-detail:nth-child(even) {
-    
+
     background-color: #ffffff;
     color: #000000;
 }
@@ -310,19 +493,23 @@ h2 {
 
 /* Imagen más pequeña y centrada */
 .feature-image {
-    width: 30%; /* Reduce el tamaño de la imagen */
+    width: 30%;
+    /* Reduce el tamaño de la imagen */
     height: auto;
     border-radius: 8px;
     padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: 4px solid #00BCD4; /* Borde azul */
+    border: 4px solid #00BCD4;
+    /* Borde azul */
 }
 
 /* Contenedor de texto centrado y más compacto */
 .feature-text {
-    width: 50%; /* Ajusta el ancho del texto */
+    width: 50%;
+    /* Ajusta el ancho del texto */
     padding: 10px 20px;
-    text-align: left; /* Centra el texto */
+    text-align: left;
+    /* Centra el texto */
 }
 
 /* Estilo del título */
@@ -359,10 +546,13 @@ h2 {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('/assets/images/fondomap.webp'); /* Ruta de la imagen de fondo */
-    background-size: 700px 700px; /* Tamaño más pequeño para repetición */
+    background-image: url('/assets/images/fondomap.webp');
+    /* Ruta de la imagen de fondo */
+    background-size: 700px 700px;
+    /* Tamaño más pequeño para repetición */
     background-repeat: repeat;
-    opacity: 0.4; /* Ajusta la transparencia del fondo */
+    opacity: 0.4;
+    /* Ajusta la transparencia del fondo */
     z-index: 1;
 }
 
@@ -373,7 +563,8 @@ h2 {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.8); /* Capa blanca semitransparente */
+    background-color: rgba(255, 255, 255, 0.8);
+    /* Capa blanca semitransparente */
     z-index: 2;
 }
 
@@ -381,12 +572,14 @@ h2 {
 .titulo-oscuro,
 .map-section p {
     position: relative;
-    z-index: 3; /* Asegura que el contenido esté por encima de las capas */
+    z-index: 3;
+    /* Asegura que el contenido esté por encima de las capas */
 }
 
 
 .map-section p {
-    color: #0a0909; /* Párrafo en negro */
+    color: #0a0909;
+    /* Párrafo en negro */
     font-size: 1.1em;
     margin-bottom: 20px;
 }
@@ -451,11 +644,16 @@ h2 {
 
 .faq-item {
     margin-bottom: 20px;
-    background-color: #f5f5f5; /* Fondo más oscuro para cada pregunta */
-    padding: 15px 20px; /* Espacio alrededor del texto */
-    border-radius: 8px; /* Bordes redondeados */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para dar efecto de elevación */
-    transition: background-color 0.3s ease; /* Efecto de transición en el color */
+    background-color: #f5f5f5;
+    /* Fondo más oscuro para cada pregunta */
+    padding: 15px 20px;
+    /* Espacio alrededor del texto */
+    border-radius: 8px;
+    /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    /* Sombra para dar efecto de elevación */
+    transition: background-color 0.3s ease;
+    /* Efecto de transición en el color */
 }
 
 .faq-item h3 {
@@ -469,7 +667,8 @@ h2 {
     display: none;
     padding-left: 10px;
     color: #000000;
-    margin-top: 10px; /* Espacio superior para el texto de la respuesta */
+    margin-top: 10px;
+    /* Espacio superior para el texto de la respuesta */
 }
 
 /* Para mostrar la respuesta al hacer clic */
@@ -483,7 +682,8 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #333; /* Color de fondo oscuro */
+    background-color: #333;
+    /* Color de fondo oscuro */
 }
 
 .faq-image img {
@@ -533,7 +733,8 @@ h2 {
 .footer-links ul li a {
     color: #333;
     text-decoration: none;
-    font-size: 0.9em; /* Tamaño de letra reducido */
+    font-size: 0.9em;
+    /* Tamaño de letra reducido */
     margin-bottom: 5px;
     display: block;
 }
@@ -559,7 +760,8 @@ h2 {
     display: inline-block;
     text-decoration: none;
     color: #fff;
-    font-size: 0.9em; /* Tamaño de letra ajustado */
+    font-size: 0.9em;
+    /* Tamaño de letra ajustado */
     text-align: center;
 }
 
@@ -568,7 +770,8 @@ h2 {
 }
 
 .footer-button.register {
-    background-color: #00bcd4; /* Azul para el botón de registro */
+    background-color: #00bcd4;
+    /* Azul para el botón de registro */
     margin-top: 5px;
 }
 
@@ -578,11 +781,13 @@ h2 {
 
 .footer-bottom {
     display: flex;
-    justify-content: space-between; /* Distribuye elementos a izquierda y derecha */
+    justify-content: space-between;
+    /* Distribuye elementos a izquierda y derecha */
     align-items: center;
     padding: 10px 20px;
     font-size: 0.9em;
-    background-color: #e6e6e6; /* Fondo gris claro */
+    background-color: #e6e6e6;
+    /* Fondo gris claro */
     border-top: 1px solid #d3d3d3;
 }
 
@@ -600,7 +805,8 @@ h2 {
 .footer-bottom p {
     margin: 0;
     color: #333;
-    text-align: right; /* Alinea el texto de derechos reservados a la derecha */
+    text-align: right;
+    /* Alinea el texto de derechos reservados a la derecha */
 }
 
 
@@ -611,9 +817,13 @@ h2 {
         flex-direction: column;
         padding: 40px 20px;
     }
-    .feature-image, .feature-text {
-        width: 100%; /* Cada elemento ocupa el ancho completo en pantallas pequeñas */
+
+    .feature-image,
+    .feature-text {
+        width: 100%;
+        /* Cada elemento ocupa el ancho completo en pantallas pequeñas */
     }
+
     .features-title {
         font-size: 1.8em;
         margin-bottom: 20px;
@@ -625,11 +835,13 @@ h2 {
     }
 
     .faq-image {
-        height: 300px; /* Ajusta la altura en pantallas pequeñas */
+        height: 300px;
+        /* Ajusta la altura en pantallas pequeñas */
     }
 
     .faq-image img {
-        width: 100%; /* Asegura que la imagen se ajuste a la pantalla en dispositivos pequeños */
+        width: 100%;
+        /* Asegura que la imagen se ajuste a la pantalla en dispositivos pequeños */
     }
 
     .footer-container {

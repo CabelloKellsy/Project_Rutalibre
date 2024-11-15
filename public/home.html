@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>App RutaLibre - Inicio</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <meta name="description"
         content="Con RutaLibre organiza tus viajes en grupo de manera fácil. Planifica actividades, gestiona gastos compartidos y elige el mejor destino. Todo en una sola plataforma.">
@@ -16,18 +16,22 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="icon" href="../images/favicon.ico">
 </head>
 
+<!-- public\css\home.html -->
 <body>
     <header>
         <div class="logo">
-            <img src="assets/images/logo.png" alt="RutaLibre Logo">
+            <img src="../assets/images/logo.png" alt="RutaLibre Logo">
         </div>
         <div class="header-right">
-            <button class="register-btn">Registrarse</button>
-            <div class="user-icon">
+            <a href="auth_register.html">
+                <button class="register-btn">Registrarse</button>
+            </a>
+            <a href="auth_login.html" class="user-icon">
                 <i class="fas fa-user-circle"></i>
-            </div>
+            </a>
         </div>
     </header>
 
@@ -36,9 +40,9 @@
     <section class="hero">
         <div class="carousel">
             <div class="carousel-images">
-                <img src="assets/images/hero1.webp" alt="grupo de amigos sentados en un banco viaje">
-                <img src="assets/images/hero2.webp" alt="grupo de amigas playa viaje">
-                <img src="assets/images/hero3.webp" alt="grupo de amigos viaje cultural">
+                <img src="../assets/images/hero1.webp" alt="grupo de amigos sentados en un banco viaje">
+                <img src="../assets/images/hero2.webp" alt="grupo de amigas playa viaje">
+                <img src="../assets/images/hero3.webp" alt="grupo de amigos viaje cultural">
             </div>
         </div>
 
@@ -56,7 +60,7 @@
 
     <section class="features-section">
         <h2 class="titulo-oscuro">Funcionalidades de RutaLibre</h2>
-        <img src="assets/images/decoracion.png" alt="Decoración de ruta" class="title-decoration">
+        <img src="../assets/images/decoracion.png" alt="Decoración de ruta" class="title-decoration">
         <div class="features">
             <div class="feature-card">
                 <span class="icon-circle"><i class="fas fa-map-marked-alt icon"></i></span>
@@ -108,7 +112,7 @@
     <section class="feature-details">
         <!-- Sección 1: Votación de Destinos (Fondo Blanco) -->
         <div id="votacion-destinos" class="feature-detail">
-            <img src="assets/images/votacion-destinos.webp" alt="Votación de Destinos" class="feature-image">
+            <img src="../assets/images/votacion-destinos.webp" alt="Votación de Destinos" class="feature-image">
             <div class="feature-text">
                 <h3>Votación de Destinos</h3>
                 <p>Permite a los usuarios votar por sus destinos favoritos, lo que facilita la toma de decisiones en
@@ -122,7 +126,7 @@
 
         <!-- Sección 2: Gestión de Actividades (Fondo Oscuro) -->
         <div id="gestiona-actividades" class="feature-detail reverse">
-            <img src="assets/images/gestiona-actividades.webp" alt="Gestión de Actividades" class="feature-image">
+            <img src="../assets/images/gestiona-actividades.webp" alt="Gestión de Actividades" class="feature-image">
             <div class="feature-text">
                 <h3>Gestión de Actividades</h3>
                 <p>Organiza las actividades diarias de tu viaje para que cada día esté lleno de diversión y momentos
@@ -136,7 +140,7 @@
 
         <!-- Sección 3: Sugerencias de Planes (Fondo Blanco) -->
         <div id="sugerencias-planes" class="feature-detail">
-            <img src="assets/images/sugerencias-planes.webp" alt="Sugerencias de Planes" class="feature-image">
+            <img src="../assets/images/sugerencias-planes.webp" alt="Sugerencias de Planes" class="feature-image">
             <div class="feature-text">
                 <h3>Sugerencias de Planes</h3>
                 <p>Recibe ideas de actividades y planes que se ajusten a tus intereses y al destino que hayas elegido,
@@ -150,7 +154,7 @@
 
         <!-- Sección 4: Añadir Tareas (Fondo Oscuro) -->
         <div id="anade-tareas" class="feature-detail reverse">
-            <img src="assets/images/anade-tareas.webp" alt="Añadir Tareas" class="feature-image">
+            <img src="../assets/images/anade-tareas.webp" alt="Añadir Tareas" class="feature-image">
             <div class="feature-text">
                 <h3>Añadir Tareas</h3>
                 <p>Organiza y asigna tareas para el viaje, como reservaciones, compras, y responsabilidades, asegurando
@@ -164,7 +168,7 @@
 
         <!-- Sección 5: Control de Gastos (Fondo Blanco) -->
         <div id="control-gastos" class="feature-detail">
-            <img src="assets/images/control-gastos.webp" alt="Control de Gastos" class="feature-image">
+            <img src="../assets/images/control-gastos.webp" alt="Control de Gastos" class="feature-image">
             <div class="feature-text">
                 <h3>Control de Gastos</h3>
                 <p>Gestiona los gastos compartidos entre los miembros del grupo, llevando un registro claro de quién
@@ -178,7 +182,7 @@
 
         <!-- Sección 6: Cronograma Visual del Viaje (Fondo Oscuro) -->
         <div id="cronograma-visual" class="feature-detail reverse">
-            <img src="assets/images/cronograma-visual.webp" alt="Cronograma Visual del Viaje" class="feature-image">
+            <img src="../assets/images/cronograma-visual.webp" alt="Cronograma Visual del Viaje" class="feature-image">
             <div class="feature-text">
                 <h3>Cronograma Visual del Viaje</h3>
                 <p>Crea un cronograma visual detallado que muestre todas las actividades planeadas en orden. Esto ayuda
@@ -265,7 +269,7 @@
 
 
 
-    <script src="script/main.js"></script>
+    <script src="../script/main.js"></script>
 
 </body>
 
