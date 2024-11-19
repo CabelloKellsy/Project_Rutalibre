@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 include 'connection.php';
 
-class UsuariosAPI
+class ViajesAPI
 {
     private $conn;
 
@@ -22,18 +22,7 @@ class UsuariosAPI
     {
         $errors = [];
 
-        if (empty($data['nombre'])) {
-            $errors[] = "El nombre del viaje es requerido";
-        }
-        
-        if (empty($data['apellido'])) {
-            $errors[] = "El nombre del viaje es requerido";
-        }
-        
-        if (empty($data['email'])) {
-            $errors[] = "El nombre del viaje es requerido";
-        }
-        if (empty($data['password'])) {
+        if (empty($data['nombre_viaje'])) {
             $errors[] = "El nombre del viaje es requerido";
         }
 
@@ -183,6 +172,6 @@ class UsuariosAPI
 }
 
 // Uso de la API
-$api = new UsuariosAPI($conn);
+$api = new ViajesAPI($conn);
 $api->handleRequest();
 

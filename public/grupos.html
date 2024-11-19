@@ -3,44 +3,267 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Usuarios</title>
+    <title>Gestión de Grupos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
-    <h1>Lista de Grupos</h1>
-    <ul id="usuarios"></ul>
+    <div class="container mt-4">
+        <h1>Gestión de Grupos</h1>
+
+        <!-- Selector de Viajes -->
+        <div class="mb-4">
+            <label for="viajeSelect" class="form-label">Seleccione un Viaje:</label>
+            <select class="form-select" id="viajeSelect">
+                <option value="">Seleccione un viaje...</option>
+            </select>
+        </div>
+
+        <script>
+            // Cargar viajes al iniciar
+            document.addEventListener('DOMContentLoaded', loadViajes);
+
+            // Cargar viajes
+            async function loadViajes() {
+                try {
+                    const response = await fetch('../bd/viajes_insert.php');
+                    const viajes = await response.json();
+                    const select = document.getElementById('viajeSelect');
+
+                    viajes.forEach(viaje => {
+                        const option = document.createElement('option');
+                        option.value = viaje.id_viaje;
+                        option.textContent = viaje.nombre_viaje;
+                        select.appendChild(option);
+                    });
+                } catch (error) {
+                    console.error('Error al cargar viajes:', error);
+                }
+            }
+        </script>
+        <!-- Mensaje de no grupos -->
+        <div id="noGruposMessage" class="alert alert-info d-none">
+            El viaje no tiene grupos
+        </div>
+
+        <!-- Formulario de Grupo -->
+        <div id="grupoForm" class="card mb-4 d-none">
+            <div class="card-header">
+                <h2 id="formTitle">Crear Grupo</h2>
+            </div>
+            <div class="card-body">
+                <form id="groupForm">
+                    <input type="hidden" id="id_grupo">
+                    <input type="hidden" id="viajes_id_viajes">
+                    <div class="mb-3">
+                        <label for="nombre_grupo" class="form-label">Nombre del grupo:</label>
+                        <input type="text" class="form-control" id="nombre_grupo" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="integrantes" class="form-label">Integrantes:</label>
+                        <input type="number" class="form-control" id="integrantes" required min="1">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="estado" class="form-label">Estado:</label>
+                        <select class="form-select" id="estado" required>
+                            <option value="Activo">Activo</option>
+                            <option value="Eliminado">Eliminado</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripción:</label>
+                        <textarea class="form-control" id="descripcion" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-secondary" onclick="resetForm()">Cancelar</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Tabla de Grupos -->
+        <div class="table-responsive">
+            <table class="table" id="gruposTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre del grupo</th>
+                        <th>Integrantes</th>
+                        <th>Estado</th>
+                        <th>Descripción</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
 
     <script>
-        fetch('../bd/grupos.php')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error en la respuesta de la red');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.error) {
-                    console.error('Error desde el servidor:', data.error);
-                    return;
-                }
-                const gruposTable = document.createElement('table');
-                gruposTable.id = 'grupos';
-                gruposTable.innerHTML += `<tr><th>Id Grupo</th><th>Nombre del Grupo</th><th>Integrantes</th><th>Estado</th><th>Descripción</th><th>Id Viaje Asociado</th></tr>`;
-                //mostrar los grupos en una lista
-                data.forEach(grupo => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML += `<td>${grupo.id_grupo}</td><td>${grupo.nombre_grupo}</td><td>${grupo.integrantes}</td><td>${grupo.estado}</td><td>${grupo.descripcion}</td><td>${grupo.viajes_id_viajes}</td>`;
-                    gruposTable.appendChild(tr);
-                });
-                document.body.appendChild(gruposTable);
-            })
-            .catch(error => {
-                if (error.message.includes('Unexpected token')) {
-                    console.error('Error: La respuesta no es un JSON válido');
-                } else {
-                    console.error('Error:', error.message);
-                }
-            });
+        // Variables globales
+        let currentViajeId = null;
 
+        // Cargar viajes al iniciar
+        document.addEventListener('DOMContentLoaded', loadViajes);
+
+        // Cargar lista de viajes
+        async function loadViajes() {
+            try {
+                const response = await fetch('../bd/grupos.php?action=viajes');
+                const data = await response.json();
+                const select = document.getElementById('viajeSelect');
+
+                data.forEach(viaje => {
+                    const option = document.createElement('option');
+                    option.value = viaje.id_viajes;
+                    option.textContent = viaje.nombre_viaje;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error al cargar viajes:', error);
+            }
+        }
+
+        // Event listener para el selector de viajes
+        document.getElementById('viajeSelect').addEventListener('change', async (e) => {
+            currentViajeId = e.target.value;
+            if (currentViajeId) {
+                await loadGrupos(currentViajeId);
+                document.getElementById('viajes_id_viajes').value = currentViajeId;
+                document.getElementById('grupoForm').classList.remove('d-none');
+            } else {
+                document.getElementById('grupoForm').classList.add('d-none');
+                document.getElementById('noGruposMessage').classList.add('d-none');
+                document.querySelector('#gruposTable tbody').innerHTML = '';
+            }
+        });
+
+        // Cargar grupos por viaje
+        async function loadGrupos(viajeId) {
+            try {
+                const response = await fetch(`../bd/grupos.php?viaje_id=${viajeId}`);
+                const data = await response.json();
+                const tbody = document.querySelector('#gruposTable tbody');
+                const noGruposMessage = document.getElementById('noGruposMessage');
+
+                tbody.innerHTML = '';
+
+                if (data.grupos && data.grupos.length > 0) {
+                    noGruposMessage.classList.add('d-none');
+                    data.grupos.forEach(grupo => {
+                        const row = `
+                            <tr>
+                                <td>${grupo.id_grupo}</td>
+                                <td>${grupo.nombre_grupo}</td>
+                                <td>${grupo.integrantes}</td>
+                                <td>${grupo.estado}</td>
+                                <td>${grupo.descripcion}</td>
+                                <td>
+                                    <button onclick="editGrupo(${JSON.stringify(grupo)})" class="btn btn-sm btn-warning">Editar</button>
+                                    <button onclick="deleteGrupo(${grupo.id_grupo})" class="btn btn-sm btn-danger">Eliminar</button>
+                                </td>
+                            </tr>
+                        `;
+                        tbody.insertAdjacentHTML('beforeend', row);
+                    });
+                } else {
+                    noGruposMessage.classList.remove('d-none');
+                }
+            } catch (error) {
+                console.error('Error al cargar grupos:', error);
+            }
+        }
+
+        // Manejar el envío del formulario
+        document.getElementById('groupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = {
+                nombre_grupo: document.getElementById('nombre_grupo').value,
+                integrantes: document.getElementById('integrantes').value,
+                estado: document.getElementById('estado').value,
+                descripcion: document.getElementById('descripcion').value,
+                viaje_id: currentViajeId
+            };
+
+            try {
+                const response = await fetch('../bd/grupos.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    alert('Grupo creado exitosamente');
+                    resetForm();
+                    loadGrupos(currentViajeId);
+                } else {
+                    console.error('Error al crear el grupo:', response.status, response.statusText);
+                }
+            } catch (error) {
+                console.error('Error al crear el grupo:', error);
+            }
+        });
+
+        // Función para editar un grupo
+        async function editGrupo(grupo) {
+            try {
+                const response = await fetch(`../bd/grupos.php?id_grupo=${grupo.id_grupo}`);
+                const data = await response.json();
+
+                if (response.ok) {
+                    document.getElementById('id_grupo').value = grupo.id_grupo;
+                    document.getElementById('nombre_grupo').value = grupo.nombre_grupo;
+                    document.getElementById('integrantes').value = grupo.integrantes;
+                    document.getElementById('estado').value = grupo.estado;
+                    document.getElementById('descripcion').value = grupo.descripcion;
+                    document.getElementById('viajes_id_viajes').value = grupo.viajes_id_viajes;
+                    document.getElementById('formTitle').textContent = 'Editar Grupo';
+                    document.getElementById('grupoForm').classList.remove('d-none');
+                } else {
+                    console.error('Error al editar el grupo:', response.status, response.statusText);
+                }
+            } catch (error) {
+                console.error('Error al editar el grupo:', error);
+            }
+        }
+
+        // Función para eliminar un grupo
+        async function deleteGrupo(id_grupo) {
+            try {
+                const response = await fetch(`../bd/grupos.php?id_grupo=${id_grupo}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    alert('Grupo eliminado exitosamente');
+                    loadGrupos(currentViajeId);
+                } else {
+                    console.error('Error al eliminar el grupo:', response.status, response.statusText);
+                }
+            } catch (error) {
+                console.error('Error al eliminar el grupo:', error);
+            }
+        }
+
+        // Función para resetear el formulario
+        function resetForm() {
+            document.getElementById('id_grupo').value = '';
+            document.getElementById('nombre_grupo').value = '';
+            document.getElementById('integrantes').value = '';
+            document.getElementById('estado').value = 'Activo';
+            document.getElementById('descripcion').value = '';
+            document.getElementById('formTitle').textContent = 'Crear Grupo';
+            document.getElementById('grupoForm').classList.add('d-none');
+        }
     </script>
+
 </body>
+
 </html>
+
