@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
                 <button type="submit" class="btn">Iniciar sesión</button>
             </form>
-            <a href="auth_user_pass.html" class="forgot-password">¿Olvidaste tu contraseña?</a>
+            <a href="auth_user_pass.php" class="forgot-password">¿Olvidaste tu contraseña?</a>
             <p class="register-prompt">¿No tienes una cuenta? <a href="auth_register.php" class="register-link">Regístrate</a></p>
 
             <!-- Botón para volver a inicio -->
