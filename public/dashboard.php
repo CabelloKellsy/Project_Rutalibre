@@ -17,38 +17,39 @@ if (!isset($_SESSION['email'])) {
     <title>Dashboard - RutaLibre</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css"> <!-- Estilos personalizados opcionales -->
 </head>
 
 <body>
 <header>
-    <!-- Barra de navegación personalizada -->
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar">
         <div class="container">
             <!-- Logotipo -->
             <a class="logo" href="#">
-                <img src="../assets/images/logo.png" alt="RutaLibre Logo" class="logo">
+                <img src="../assets/images/logo.png" alt="RutaLibre Logo">
             </a>
 
             <!-- Enlaces de navegación -->
-            <div class="header-right">
+            <div class="nav-links">
                 <a href="#" class="nav-link">Viajes</a>
                 <a href="#" class="nav-link">Asistencia técnica</a>
-                
-                <!-- Menú de usuario -->
-                <div class="user-menu">
-                    <a href="#" class="user-icon">
-                        <i class="fas fa-user-circle"></i>
-                    </a>
-                    <div class="dropdown">
-                        <a href="#" class="dropdown-item">Configuración de perfil</a>
-                        <a href="logout.php" class="dropdown-item">Cerrar sesión</a>
-                    </div>
+            </div>
+
+            <!-- Menú de usuario -->
+            <div class="user-menu">
+                <a href="#" class="user-icon">
+                    <i class="fas fa-user-circle"></i>
+                </a>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-item">Configuración de perfil</a>
+                    <a href="logout.php" class="dropdown-item">Cerrar sesión</a>
                 </div>
             </div>
         </div>
     </nav>
 </header>
+
 
 
     <!-- Contenido principal -->
