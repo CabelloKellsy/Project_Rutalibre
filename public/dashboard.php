@@ -2,7 +2,7 @@
 session_start(); // Iniciar la sesión para poder acceder a las variables de sesión
 
 // Verificar si el usuario está logueado
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['email'])) {
     // Si no está logueado, redirigir al login
     header('Location: auth_login.php');
     exit;
@@ -30,11 +30,11 @@ if (!isset($_SESSION['username'])) {
     <div class="dashboard-page">
         <div class="dashboard-box">
             <h2>Bienvenido al Dashboard</h2>
-            <p>¡Estás conectado, <?php echo $_SESSION['username']; ?>!</p> <!-- Mostrar nombre de usuario conectado -->
+            <p>¡Estás conectado, <?php echo $_SESSION['email']; ?>!</p> <!-- Mostrar nombre de usuario conectado -->
 
             <p>CONECTADO</p> <!-- Mensaje de conexión -->
 
-            <a href="logout.php" class="btn">Cerrar sesión</a> <!-- Botón de cierre de sesión -->
+            <a href="index.html" class="btn">Cerrar sesión</a> <!-- Botón de cierre de sesión -->
         </div>
     </div>
 </body>

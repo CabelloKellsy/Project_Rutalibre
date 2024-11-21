@@ -74,11 +74,3 @@ window.onscroll = function () {
 document.getElementById('back-to-top').onclick = function () {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 };
-
-
-// desplegar y colapsar FAQ
-document.querySelectorAll('.faq-item').forEach(item => {
-    item.addEventListener('click', () => {
-        item.classList.toggle('active');
-    });
-});

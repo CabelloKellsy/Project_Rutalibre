@@ -1,37 +1,35 @@
 <?php
-session_start(); // Iniciar la sesión para manejar las variables de sesión
+session_start(); // Iniciar la sesión
+ob_start(); // Activar el buffer de salida
 
-include '../bd/connection.php'; // Incluir la conexión a la base de datos
+include '../bd/connection.php'; // Incluir conexión a la base de datos
 
-$loginError = ""; // Variable para mensaje de error
+$loginError = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
 
     try {
-        // Consulta para encontrar al usuario en la base de datos
-        $stmt = $conn->prepare("SELECT * FROM usuarios WHERE email = :username");
-        $stmt->bindParam(':username', $username);
+        $stmt = $conn->prepare("SELECT * FROM usuarios WHERE email = :email");
+        $stmt->bindParam(':email', $email);
         $stmt->execute();
         $user = $stmt->fetch();
 
-        // Verificar si el usuario existe y si la contraseña es correcta
-        if ($user && $password === $user['password']) {
-            // Si el login es exitoso, guardar los datos del usuario en la sesión
-            $_SESSION['username'] = $user['nombre']; // Almacenar el nombre en la sesión
-
-            // Redirigir al dashboard
+        if ($user && password_verify($password, $user['password'])) {
+            session_regenerate_id(true);
+            $_SESSION['email'] = $user['email'];
             header('Location: dashboard.php');
             exit;
         } else {
-            $loginError = "Nombre de usuario o contraseña incorrectos.";
+            $loginError = "Correo o contraseña incorrectos.";
         }
     } catch (PDOException $e) {
         $loginError = "Error en la conexión: " . $e->getMessage();
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -57,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p>Comienza con nosotros</p>
             <!-- Formulario de login -->
             <form action="auth_login.php" method="post">
-                <input type="email" name="username" class="form-control" placeholder="Correo electrónico" required>
+                <input type="email" name="email" class="form-control" placeholder="Correo electrónico" required>
                 <input type="password" name="password" class="form-control" placeholder="Contraseña" required>
                 
                 <!-- Mostrar mensaje de error si el login falla -->
