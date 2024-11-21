@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 header('Content-Type: application/json');
 include 'connection.php';
 
@@ -11,6 +13,7 @@ class UsuariosAPI
         $this->conn = $conn;
     }
 
+
     public function sendResponse($data, $statusCode = 200)
     {
         http_response_code($statusCode);
@@ -18,159 +21,219 @@ class UsuariosAPI
         exit;
     }
 
-    private function validateData($data)
+    private function validateUserData($data)
     {
         $errors = [];
 
         if (empty($data['nombre'])) {
-            $errors[] = "El nombre del viaje es requerido";
+            $errors[] = "El nombre es requerido";
         }
-        
+
         if (empty($data['apellido'])) {
-            $errors[] = "El nombre del viaje es requerido";
+            $errors[] = "El apellido es requerido";
         }
-        
+
         if (empty($data['email'])) {
-            $errors[] = "El nombre del viaje es requerido";
+            $errors[] = "El email es requerido";
+        } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $errors[] = "El email no es válido";
         }
+
         if (empty($data['password'])) {
-            $errors[] = "El nombre del viaje es requerido";
-        }
-
-        if (empty($data['fecha_inicio'])) {
-            $errors[] = "La fecha de inicio es requerida";
-        }
-
-        if (empty($data['fecha_final'])) {
-            $errors[] = "La fecha final es requerida";
-        }
-
-        if (!is_numeric($data['presupuesto_base']) || $data['presupuesto_base'] < 0) {
-            $errors[] = "El presupuesto base debe ser un número positivo";
-        }
-
-        if (!in_array($data['estado'], ['Planificado', 'En Curso', 'Finalizado'])) {
-            $errors[] = "Estado inválido";
+            $errors[] = "La contraseña es requerida";
+        } elseif (strlen($data['password']) < 6) {
+            $errors[] = "La contraseña debe tener al menos 6 caracteres";
         }
 
         return $errors;
     }
 
-    public function getViajes()
+    public function getUsuarios()
     {
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM viajes ORDER BY id_viaje ASC");
+            $stmt = $this->conn->prepare("SELECT id_usuario, nombre, apellido, email, tipo_usuario, fecha_creacion FROM usuarios ORDER BY id_usuario ASC");
             $stmt->execute();
             return $this->sendResponse($stmt->fetchAll(PDO::FETCH_ASSOC));
         } catch (PDOException $e) {
-            return $this->sendResponse(["error" => "Error al obtener viajes: " . $e->getMessage()], 500);
+            return $this->sendResponse(["error" => "Error al obtener usuarios: " . $e->getMessage()], 500);
         }
     }
 
-    public function createViaje($data)
+    public function createUsuario($data)
     {
         try {
-            $errors = $this->validateData($data);
+            $errors = $this->validateUserData($data);
             if (!empty($errors)) {
                 return $this->sendResponse(["errors" => $errors], 400);
             }
 
+            // Check if email already exists
+            $checkStmt = $this->conn->prepare("SELECT COUNT(*) FROM usuarios WHERE email = :email");
+            $checkStmt->execute([':email' => $data['email']]);
+            if ($checkStmt->fetchColumn() > 0) {
+                return $this->sendResponse(["error" => "El email ya está registrado"], 400);
+            }
+
+            // Hash password
+            $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
+
             $stmt = $this->conn->prepare("
-                INSERT INTO viajes (nombre_viaje, fecha_inicio, fecha_final, presupuesto_base, estado)
-                VALUES (:nombre_viaje, :fecha_inicio, :fecha_final, :presupuesto_base, :estado)
+                INSERT INTO usuarios (nombre, apellido, email, password, fecha_creacion, tipo_usuario)
+                VALUES (:nombre, :apellido, :email, :password, NOW(), :tipo_usuario)
             ");
 
             $stmt->execute([
-                ':nombre_viaje' => $data['nombre_viaje'],
-                ':fecha_inicio' => $data['fecha_inicio'],
-                ':fecha_final' => $data['fecha_final'],
-                ':presupuesto_base' => $data['presupuesto_base'],
-                ':estado' => $data['estado']
+                ':nombre' => $data['nombre'],
+                ':apellido' => $data['apellido'],
+                ':email' => $data['email'],
+                ':password' => $hashedPassword,
+                ':tipo_usuario' => $data['tipo_usuario'] ?? 'particular'
             ]);
 
-            return $this->sendResponse(["message" => "Viaje creado exitosamente", "id" => $this->conn->lastInsertId()], 201);
+            return $this->sendResponse([
+                "message" => "Usuario creado exitosamente",
+                "id" => $this->conn->lastInsertId()
+            ], 201);
         } catch (PDOException $e) {
-            return $this->sendResponse(["error" => "Error al crear viaje: " . $e->getMessage()], 500);
+            return $this->sendResponse(["error" => "Error al crear usuario: " . $e->getMessage()], 500);
         }
     }
 
-    public function updateViaje($id, $data)
+    public function updateUsuario($id, $data)
     {
         try {
-            $errors = $this->validateData($data);
+            $errors = $this->validateUserData($data);
             if (!empty($errors)) {
                 return $this->sendResponse(["errors" => $errors], 400);
             }
 
+            // Hash password if provided
+            $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
+
             $stmt = $this->conn->prepare("
-                UPDATE viajes
-                SET nombre_viaje = :nombre_viaje,
-                    fecha_inicio = :fecha_inicio,
-                    fecha_final = :fecha_final,
-                    presupuesto_base = :presupuesto_base,
-                    estado = :estado
-                WHERE id_viaje = :id_viaje
+                UPDATE usuarios
+                SET nombre = :nombre,
+                    apellido = :apellido,
+                    email = :email,
+                    password = :password,
+                    tipo_usuario = :tipo_usuario
+                WHERE id_usuario = :id
             ");
 
-            $data['id_viaje'] = $id;
-            $stmt->execute($data);
+            $stmt->execute([
+                ':nombre' => $data['nombre'],
+                ':apellido' => $data['apellido'],
+                ':email' => $data['email'],
+                ':password' => $hashedPassword,
+                ':tipo_usuario' => $data['tipo_usuario'] ?? 'particular',
+                ':id' => $id
+            ]);
 
             if ($stmt->rowCount() === 0) {
-                return $this->sendResponse(["error" => "Viaje no encontrado"], 404);
+                return $this->sendResponse(["error" => "Usuario no encontrado"], 404);
             }
 
-            return $this->sendResponse(["message" => "Viaje actualizado exitosamente"]);
+            return $this->sendResponse(["message" => "Usuario actualizado exitosamente"]);
         } catch (PDOException $e) {
-            return $this->sendResponse(["error" => "Error al actualizar viaje: " . $e->getMessage()], 500);
+            return $this->sendResponse(["error" => "Error al actualizar usuario: " . $e->getMessage()], 500);
         }
     }
 
-    public function deleteViaje($id)
+    public function deleteUsuario($id)
     {
         try {
-            $stmt = $this->conn->prepare("DELETE FROM viajes WHERE id_viaje = :id_viaje");
-            $stmt->execute([':id_viaje' => $id]);
+            $stmt = $this->conn->prepare("DELETE FROM usuarios WHERE id_usuario = :id");
+            $stmt->execute([':id' => $id]);
 
             if ($stmt->rowCount() === 0) {
-                return $this->sendResponse(["error" => "Viaje no encontrado"], 404);
+                return $this->sendResponse(["error" => "Usuario no encontrado"], 404);
             }
 
-            return $this->sendResponse(["message" => "Viaje eliminado exitosamente"]);
+            return $this->sendResponse(["message" => "Usuario eliminado exitosamente"]);
         } catch (PDOException $e) {
-            return $this->sendResponse(["error" => "Error al eliminar viaje: " . $e->getMessage()], 500);
+            return $this->sendResponse(["error" => "Error al eliminar usuario: " . $e->getMessage()], 500);
         }
     }
 
+    public function getViajesDeUsuario($userId)
+    {
+        try {
+            $stmt = $this->conn->prepare("
+                SELECT v.* 
+                FROM viajes v
+                JOIN usuarios_viaje uv ON v.id_viaje = uv.id_viajes
+                WHERE uv.id_usuarios = :userId
+            ");
+            $stmt->execute([':userId' => $userId]);
+            return $this->sendResponse($stmt->fetchAll(PDO::FETCH_ASSOC));
+        } catch (PDOException $e) {
+            return $this->sendResponse(["error" => "Error al obtener viajes del usuario: " . $e->getMessage()], 500);
+        }
+    }
+
+    public function getGruposDeUsuario($userId)
+    {
+        try {
+            $stmt = $this->conn->prepare("
+                SELECT g.* 
+                FROM grupos g
+                JOIN usuarios_grupos ug ON g.id_grupo = ug.grupos_id
+                WHERE ug.usuarios_id = :userId
+            ");
+            $stmt->execute([':userId' => $userId]);
+            return $this->sendResponse($stmt->fetchAll(PDO::FETCH_ASSOC));
+        } catch (PDOException $e) {
+            return $this->sendResponse(["error" => "Error al obtener grupos del usuario: " . $e->getMessage()], 500);
+        }
+    }
 
     public function handleRequest()
     {
         $method = $_SERVER['REQUEST_METHOD'];
+        $path = $_SERVER['REQUEST_URI'];
 
         try {
+            // Extrayendo el último segmento de la ruta
+            $pathParts = explode('/', $path);
+            $lastPart = end($pathParts);
+
             switch ($method) {
                 case 'GET':
-                    $this->getViajes();
+                    if ($lastPart === 'usuarios' || $lastPart === 'usuarios.php') { // Manejar ambas rutas
+                        $this->getUsuarios();
+                    } elseif (strpos($lastPart, 'viajes') !== false) {
+                        $userId = filter_input(INPUT_GET, 'usuario_id', FILTER_VALIDATE_INT);
+                        if ($userId) {
+                            $this->getViajesDeUsuario($userId);
+                        }
+                    } elseif (strpos($lastPart, 'grupos') !== false) {
+                        $userId = filter_input(INPUT_GET, 'usuario_id', FILTER_VALIDATE_INT);
+                        if ($userId) {
+                            $this->getGruposDeUsuario($userId);
+                        }
+                    }
                     break;
 
                 case 'POST':
-                    $this->createViaje($_POST);
+                    $data = json_decode(file_get_contents('php://input'), true);
+                    $this->createUsuario($data);
                     break;
 
                 case 'PUT':
                     $data = json_decode(file_get_contents('php://input'), true);
-                    $id = isset($_GET['id_viaje']) ? $_GET['id_viaje'] : null;
+                    $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
                     if (!$id) {
-                        $this->sendResponse(["error" => "ID de viaje no proporcionado"], 400);
+                        $this->sendResponse(["error" => "ID de usuario no proporcionado"], 400);
                     }
-                    $this->updateViaje($id, $data);
+                    $this->updateUsuario($id, $data);
                     break;
 
                 case 'DELETE':
-                    $id = isset($_GET['id_viaje']) ? $_GET['id_viaje'] : null;
+                    $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
                     if (!$id) {
-                        $this->sendResponse(["error" => "ID de viaje no proporcionado"], 400);
+                        $this->sendResponse(["error" => "ID de usuario no proporcionado"], 400);
                     }
-                    $this->deleteViaje($id);
+                    $this->deleteUsuario($id);
                     break;
 
                 default:
@@ -185,4 +248,3 @@ class UsuariosAPI
 // Uso de la API
 $api = new UsuariosAPI($conn);
 $api->handleRequest();
-

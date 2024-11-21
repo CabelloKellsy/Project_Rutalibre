@@ -222,3 +222,4 @@ class GruposAPI
 
 $api = new GruposAPI($conn);
 $api->handleRequest();
+

@@ -2,44 +2,89 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Usuarios</title>
+    <title>Gestión de Usuarios</title>
+    <style>
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    </style>
 </head>
 <body>
-    <h1>Lista de Usuarios</h1>
-    <ul id="usuarios"></ul>
-    <script>
-        fetch('../bd/api.php')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error en la respuesta de la red');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.error) {
-                    console.error('Error desde el servidor:', data.error);
-                    return;
-                }
-                const usuariosTable = document.createElement('table');
-                usuariosTable.id = 'usuarios';
-                usuariosTable.innerHTML += `<tr><th>Id Usuario</th><th>Nombre</th><th>Apellido</th><th>Email</th><th>Fecha Creaci n</th><th>Tipo de Usuario</th></tr>`;
-                //mostrar los usuarios en una lista
-                data.forEach(usuario => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML += `<td>${usuario.id_usuario}</td><td>${usuario.nombre}</td><td>${usuario.apellido}</td><td>${usuario.email}</td><td>${usuario.fecha_creacion}</td><td>${usuario.tipo_usuario}</td>`;
-                    usuariosTable.appendChild(tr);
-                });
-                document.body.appendChild(usuariosTable);
-            })
-            .catch(error => {
-                if (error.message.includes('Unexpected token')) {
-                    console.error('Error: La respuesta no es un JSON v lido');
-                } else {
-                    console.error('Error:', error.message);
-                }
-            });
+    <div class="tabs">
+        <button onclick="showTab('usuarios')">Usuarios</button>
+        <button onclick="showTab('crear-usuario')">Crear Usuario</button>
+        <button onclick="showTab('mis-viajes')">Mis Viajes</button>
+        <button onclick="showTab('mis-grupos')">Mis Grupos</button>
+    </div>
 
-    </script>
+    <div id="usuarios" class="tab-content">
+        <h2>Lista de Usuarios</h2>
+        <table id="usuariosTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Email</th>
+                    <th>Tipo Usuario</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div id="crear-usuario" class="tab-content">
+        <h2>Crear/Editar Usuario</h2>
+        <form id="usuarioForm">
+            <input type="hidden" id="usuarioId" name="id">
+            <label>Nombre: <input type="text" id="nombre" required></label>
+            <label>Apellido: <input type="text" id="apellido" required></label>
+            <label>Email: <input type="email" id="email" required></label>
+            <label>Contraseña: <input type="password" id="password" required></label>
+            <label>Tipo Usuario: 
+                <select id="tipoUsuario">
+                    <option value="particular">Particular</option>
+                    <option value="empresa">Empresa</option>
+                </select>
+            </label>
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+
+    <div id="mis-viajes" class="tab-content">
+        <h2>Mis Viajes</h2>
+        <table id="viajesTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre Viaje</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Final</th>
+                    <th>Presupuesto</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div id="mis-grupos" class="tab-content">
+        <h2>Mis Grupos</h2>
+        <table id="gruposTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Rol</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script src="../js/usuarios.js"></script>
 </body>
 </html>

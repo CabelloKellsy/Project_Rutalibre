@@ -5,15 +5,15 @@
 header('Content-Type: application/json'); // Establece el tipo de contenido a JSON
 include 'connection.php'; // llamar el archivo de conexión
 
-$sql = "SELECT * FROM usuarios"; // tabla usuarios
+$sql = "SELECT * FROM grupos"; // tabla grupos
 try {
     $result = $conn->query($sql);
 
-    $usuarios = array();
+    $grupos = array();
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-        $usuarios[] = $row; // Agrega cada fila a un array
+        $grupos[] = $row; // Agrega cada fila a un array
     }
-    echo json_encode($usuarios); // Devuelve los datos en formato JSON
+    echo json_encode($grupos); // Devuelve los datos en formato JSON
 } catch (PDOException $e) {
     // En caso de error
     echo json_encode(array("error" => "Error en la consulta: " . $e->getMessage()));
@@ -21,3 +21,4 @@ try {
 
 $conn = null; // Cierra la conexión
 ?>
+
