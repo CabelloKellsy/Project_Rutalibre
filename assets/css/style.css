@@ -18,21 +18,25 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-image: url('../images/fondo_login.webp'); /* Ajusta la ruta de la imagen */
+    background-image: url('../images/fondo_login.webp');
+    /* Ajusta la ruta de la imagen */
     background-size: cover;
     background-position: center;
 }
 
 /* Caja de login y registro centrada con fondo oscuro semi-transparente */
 .auth-box {
-    background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro semi-transparente */
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Fondo oscuro semi-transparente */
     padding: 20px;
     border-radius: 8px;
     width: 100%;
     max-width: 400px;
     text-align: center;
-    color: #fff; /* Texto en color blanco */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+    color: #fff;
+    /* Texto en color blanco */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    /* Sombra ligera */
 }
 
 /* Estilo de input con fondo blanco */
@@ -45,13 +49,16 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
-    background-color: #fff; /* Fondo blanco */
-    color: #333; /* Texto en color oscuro */
+    background-color: #fff;
+    /* Fondo blanco */
+    color: #333;
+    /* Texto en color oscuro */
 }
 
 /* Color del texto de los placeholders */
 .auth-box input::placeholder {
-    color: #888; /* Placeholder en gris */
+    color: #888;
+    /* Placeholder en gris */
     opacity: 1;
 }
 
@@ -125,13 +132,15 @@ body {
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 5px;
     margin: 10px 0;
-    border: 1px solid #ccc; /* Borde claro */
+    border: 1px solid #ccc;
+    /* Borde claro */
 }
 
 .input-group .input-group-text {
     padding: 10px;
     background-color: transparent;
-    color: #fff; /* Ícono en color blanco */
+    color: #fff;
+    /* Ícono en color blanco */
 }
 
 .input-group .form-control {
@@ -139,7 +148,8 @@ body {
     padding: 10px;
     border: none;
     background-color: transparent;
-    color: #333; /* Texto en color oscuro */
+    color: #333;
+    /* Texto en color oscuro */
 }
 
 /* Estilo del contenedor del checkbox */
@@ -171,7 +181,8 @@ body {
     font-size: 1em;
     margin-top: 10px;
     text-align: center;
-    text-decoration: none; /* Quita el subrayado */
+    text-decoration: none;
+    /* Quita el subrayado */
     display: inline-block;
 }
 
@@ -181,13 +192,17 @@ body {
 
 /* Botón secundario para regresar a inicio */
 .btn-secondary {
-    background-color: #f8f8f8; /* Color azul para botón secundario */
-    color: #fff; /* Texto en blanco */
+    background-color: #f8f8f8;
+    /* Color azul para botón secundario */
+    color: #fff;
+    /* Texto en blanco */
 }
 
 .btn-secondary:hover {
-    background-color: #0097a7; /* Color más oscuro al pasar el cursor */
-    color: #fff; /* Asegura que el texto siga siendo blanco en el hover */
+    background-color: #0097a7;
+    /* Color más oscuro al pasar el cursor */
+    color: #fff;
+    /* Asegura que el texto siga siendo blanco en el hover */
 }
 
 
@@ -890,6 +905,26 @@ h2 {
 
     .footer-social .social-icons {
         justify-content: center;
+    }
+
+    .tab-content {
+        display: none;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
     }
 
 }

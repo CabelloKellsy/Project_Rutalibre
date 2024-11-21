@@ -16,9 +16,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute();
         $user = $stmt->fetch();
 
+        // if ($user && password_verify($password, $user['password'])) {
+        //     session_regenerate_id(true);
+        //     $_SESSION['email'] = $user['email'];
+        //     header('Location: dashboard.php');
+        //     exit;
         if ($user && password_verify($password, $user['password'])) {
             session_regenerate_id(true);
             $_SESSION['email'] = $user['email'];
+            $_SESSION['user_id'] = $user['id_usuario']; // Agregar el ID del usuario a la sesión
             header('Location: dashboard.php');
             exit;
         } else {
@@ -57,14 +63,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form action="auth_login.php" method="post">
                 <input type="email" name="email" class="form-control" placeholder="Correo electrónico" required>
                 <input type="password" name="password" class="form-control" placeholder="Contraseña" required>
-                
+
                 <!-- Mostrar mensaje de error si el login falla -->
                 <?php if ($loginError): ?>
                     <div class="alert alert-danger">
                         <?php echo $loginError; ?>
                     </div>
                 <?php endif; ?>
-                
+
                 <div class="remember-me-container">
                     <input type="checkbox" id="remember-me">
                     <label for="remember-me">Recuérdame</label>

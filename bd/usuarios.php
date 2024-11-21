@@ -99,8 +99,7 @@ class UsuariosAPI
         }
     }
 
-    public function updateUsuario($id, $data)
-    {
+    public function updateUsuario($id, $data){
         try {
             $errors = $this->validateUserData($data);
             if (!empty($errors)) {
@@ -139,8 +138,7 @@ class UsuariosAPI
         }
     }
 
-    public function deleteUsuario($id)
-    {
+    public function deleteUsuario($id){
         try {
             $stmt = $this->conn->prepare("DELETE FROM usuarios WHERE id_usuario = :id");
             $stmt->execute([':id' => $id]);
@@ -155,15 +153,22 @@ class UsuariosAPI
         }
     }
 
-    public function getViajesDeUsuario($userId)
-    {
+    public function getViajesDeUsuario($userId){
         try {
             $stmt = $this->conn->prepare("
-                SELECT v.* 
-                FROM viajes v
-                JOIN usuarios_viaje uv ON v.id_viaje = uv.id_viajes
-                WHERE uv.id_usuarios = :userId
-            ");
+                SELECT v.id_viaje,
+                        v.nombre_viaje,
+                        v.fecha_inicio,
+                        v.fecha_final,
+                        v.presupuesto_base,
+                        v.estado,
+                        v.fecha_creacionv
+                        FROM
+                            viajes v
+                        INNER JOIN
+                            usuarios u ON v.id_usuario = u.id_usuario
+                        WHERE
+                            u.id_usuario = :userId; ");
             $stmt->execute([':userId' => $userId]);
             return $this->sendResponse($stmt->fetchAll(PDO::FETCH_ASSOC));
         } catch (PDOException $e) {
@@ -171,11 +176,10 @@ class UsuariosAPI
         }
     }
 
-    public function getGruposDeUsuario($userId)
-    {
+    public function getGruposDeUsuario($userId){
         try {
             $stmt = $this->conn->prepare("
-                SELECT g.* 
+                SELECT g.*
                 FROM grupos g
                 JOIN usuarios_grupos ug ON g.id_grupo = ug.grupos_id
                 WHERE ug.usuarios_id = :userId
@@ -186,6 +190,7 @@ class UsuariosAPI
             return $this->sendResponse(["error" => "Error al obtener grupos del usuario: " . $e->getMessage()], 500);
         }
     }
+
 
     public function handleRequest()
     {
@@ -205,11 +210,15 @@ class UsuariosAPI
                         $userId = filter_input(INPUT_GET, 'usuario_id', FILTER_VALIDATE_INT);
                         if ($userId) {
                             $this->getViajesDeUsuario($userId);
+                        } else {
+                            $this->sendResponse(["error" => "ID de usuario no proporcionado"], 400);
                         }
                     } elseif (strpos($lastPart, 'grupos') !== false) {
                         $userId = filter_input(INPUT_GET, 'usuario_id', FILTER_VALIDATE_INT);
                         if ($userId) {
                             $this->getGruposDeUsuario($userId);
+                        } else {
+                            $this->sendResponse(["error" => "ID de usuario no proporcionado"], 400);
                         }
                     }
                     break;

@@ -3,7 +3,7 @@
 // variables para la conecion a base de datos
 $host = "localhost";
 $port = "3306";
-$database = "bd_rutalibre2";
+$database = "bd_rutalibre3";
 
 //usuario y contraseña
 $user = "root";

@@ -147,6 +147,15 @@ async function deleteGrupo(id_grupo) {
     }
 }
 
+// funcion para getGruposDeViajes ✅
+function cargarGruposDeViajes(id) {
+    fetch(`../bd/grupos.php?viaje_id=${id}`)
+    .then(response => response.json())
+    .then(grupodeviajes => {
+        console.log(grupodeviajes);
+    }).catch(error => console.error('Error:', error));
+}
+
 // Función para resetear el formulario
 function resetForm() {
     document.getElementById('id_grupo').value = '';

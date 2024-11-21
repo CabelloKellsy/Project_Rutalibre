@@ -173,6 +173,29 @@ class GruposAPI
         }
     }
 
+    public function getGruposDeViajes($id){
+        try {
+            $stmt = $this->conn->prepare("
+                SELECT
+                    g.id_grupo,
+                    g.nombre_grupo,
+                    g.integrantes,
+                    g.estado,
+                    g.descripcion,
+                    g.viajes_id_viajes
+                FROM grupos g
+                INNER JOIN
+                    viajes v ON g.viajes_id_viajes = v.id_viaje
+                WHERE v.id_viaje = :id;
+            ");
+            $stmt->execute([':id' => $id]);
+            return $this->sendResponse($stmt->fetchAll(PDO::FETCH_ASSOC));
+        } catch (PDOException $e) {
+            return $this->sendResponse(["error" => "Error al obtener grupos que pertenecen al viaje: " . $e->getMessage()], 500);
+        }
+    }
+
+
     public function handleRequest()
     {
         $method = $_SERVER['REQUEST_METHOD'];
