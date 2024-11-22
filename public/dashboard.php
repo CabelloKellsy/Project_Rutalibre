@@ -56,7 +56,7 @@ $userId = $_SESSION['user_id'];
     <!-- Contenido principal -->
     <div class="container mt-5">
         <h2 class="mb-4">Tus viajes</h2>
-
+        <input type="hidden" value="<?php echo $userId; ?>" id="userId" />
         <!-- Botón para añadir un viaje -->
         <div class="mt-4">
             <a href="crear_viaje.php" class="btn btn-primary">+ Añadir un viaje</a>
@@ -97,11 +97,49 @@ $userId = $_SESSION['user_id'];
             <div class="tab-pane fade" id="viajes-anteriores" role="tabpanel" aria-labelledby="viajes-anteriores-tab">
                 <!-- Contenido para viajes anteriores -->
             </div>
-        </div>
 
-        <script>
-            cargarProximosViajes(<?php echo $userId; ?>)
-        </script>
+            <!-- Formulario de edición -->
+            <div id="editViajeFormContainer" style="display:none;">
+                <h1 id="formTitle">Editar Viaje</h1>
+                <form id="editViajeForm" method="POST" action="viajes_usuario.php">
+                    <input type="hidden" name="id_viaje" id="id_viaje">
+                    <input type="hidden" name="method" value="updateViaje">
+                    <div class="mb-3">
+                        <label class="form-label" for="nombre_viaje">Nombre del viaje:</label>
+                        <input type="text" class="form-control" id="nombre_viaje" name="nombre_viaje" required>
+                        <div class="invalid-feedback">Por favor, introduce el nombre del viaje.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="fecha_inicio">Fecha de inicio:</label>
+                        <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" required>
+                        <div class="invalid-feedback">Por favor, introduce la fecha de inicio.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="fecha_final">Fecha final:</label>
+                        <input type="date" class="form-control" id="fecha_final" name="fecha_final" required>
+                        <div class="invalid-feedback">Por favor, introduce la fecha final.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="presupuesto_base">Presupuesto base:</label>
+                        <input type="number" class="form-control" id="presupuesto_base" name="presupuesto_base" required min="0">
+                        <div class="invalid-feedback">Por favor, introduce el presupuesto base.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="estado">Estado:</label>
+                        <select class="form-control" id="estado" name="estado" required>
+                            <option value="Planificado">Planificado</option>
+                            <option value="En Curso">En Curso</option>
+                            <option value="Finalizado">Finalizado</option>
+                        </select>
+                        <div class="invalid-feedback">Por favor, selecciona el estado.</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                    <button type="button" class="btn btn-primary" id="cancelEditBtn">Cancelar</button>
+                </form>
+            </div>
+
+
+        </div>
 
     </div>
     <script src="../js/viajes_usuario.js"></script>
