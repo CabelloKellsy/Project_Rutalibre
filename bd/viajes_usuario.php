@@ -1,5 +1,5 @@
 <?php
-include 'config.php'; // Asegúrate de tener la conexión a la base de datos en este archivo
+include '../bd/connection.php'; // Conexión a la base de datos
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['userId']) && isset($_GET['method'])) {
     $userId = intval($_GET['userId']);
