@@ -7,13 +7,13 @@ const fechaInicio = document.getElementById('fecha_inicio');
 const fechaFinal = document.getElementById('fecha_final');
 let editingId = null;
 
-// Configurar fecha mínima para los campos de fecha
+// Configurar fecha mínima para los campos de fecha viajes general
 function setupDateFields() {
     const today = new Date().toISOString().split('T')[0];
     fechaInicio.min = today;
     fechaFinal.min = today;
 
-    // Evento para asegurar que fecha final no sea menor que fecha inicio
+    // Evento para asegurar que fecha final no sea menor que fecha inicio viajes general
     fechaInicio.addEventListener('change', function () {
         fechaFinal.min = this.value;
         if (fechaFinal.value && fechaFinal.value < this.value) {
@@ -21,7 +21,7 @@ function setupDateFields() {
         }
     });
 
-    // Evento para asegurar que fecha inicio no sea mayor que fecha final
+    // Evento para asegurar que fecha inicio no sea mayor que fecha final viajes general
     fechaFinal.addEventListener('change', function () {
         if (fechaInicio.value && fechaInicio.value > this.value) {
             fechaInicio.value = this.value;
@@ -29,13 +29,13 @@ function setupDateFields() {
     });
 }
 
-// Función para formatear fechas YYYY-MM-DD
+// Función para formatear fechas YYYY-MM-DD viajes general
 function formatDate(dateString) {
     const date = new Date(dateString);
     return date.toISOString().split('T')[0];
 }
 
-// Cargar viajes
+// Cargar viajes viajes general
 async function loadViajes() {
     try {
         const response = await fetch('../bd/viajes_insert.php');
@@ -53,6 +53,9 @@ async function loadViajes() {
                 <td>${formatDate(viaje.fecha_final)}</td>
                 <td>${viaje.presupuesto_base}</td>
                 <td>${viaje.estado}</td>
+                <td>${viaje.id_usuario}</td>
+                <td>${viaje.fecha_creacion}</td>
+
                 <td>
                     <button onclick="editViaje(${viaje.id_viaje})" class="btn btn-sm btn-warning">Editar</button>
                     <button onclick="deleteViaje(${viaje.id_viaje})" class="btn btn-sm btn-danger">Eliminar</button>
@@ -65,7 +68,7 @@ async function loadViajes() {
     }
 }
 
-// Resetear formulario
+// Resetear formulario viajes general
 function resetForm() {
     form.reset();
     editingId = null;
@@ -76,7 +79,7 @@ function resetForm() {
     setupDateFields(); // Restablecer las restricciones de fecha
 }
 
-// Manejar envío del formulario
+// Manejar envío del formulario de viajes general
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -114,7 +117,7 @@ form.addEventListener('submit', async (e) => {
     }
 });
 
-// Editar viaje
+// Editar viaje  general
 async function editViaje(id) {
     try {
         const response = await fetch(`../bd/viajes_insert.php?id_viaje=${id}`);
@@ -134,6 +137,8 @@ async function editViaje(id) {
             document.getElementById('fecha_final').value = formatDate(viaje.fecha_final);
             document.getElementById('presupuesto_base').value = viaje.presupuesto_base;
             document.getElementById('estado').value = viaje.estado;
+            document.getElementById('id_usuario').value = viaje.id_usuario;
+            document.getElementById('fecha_creacion').value = viaje.fecha_creacion;
 
             // Hacer scroll al formulario
             form.scrollIntoView({ behavior: 'smooth' });
@@ -143,7 +148,7 @@ async function editViaje(id) {
     }
 }
 
-// Eliminar viaje
+// Eliminar viaje de la lista viajes general
 async function deleteViaje(id) {
     if (!confirm('¿Está seguro de eliminar este viaje?')) return;
 
@@ -160,11 +165,64 @@ async function deleteViaje(id) {
     }
 }
 
-// Cancelar edición
+function cargarProximosViajes(userId) {
+    fetch(`../bd/viajes_usuario.php?userId=${userId}&method=getProximosViajes`)
+        .then(response => {
+            console.log('Response status:', response.status);
+            if (!response.ok) {
+                throw new Error('Error en la respuesta del servidor');
+            }
+            return response.json();
+        })
+        .then(proximosViajes => {
+            console.log('Response data:', proximosViajes);
+            const tbody = document.getElementById('tablaProximosViajesBody');
+            tbody.innerHTML = ''; // Limpiar tabla
+
+            proximosViajes.forEach(viaje => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${viaje.id_viaje}</td>
+                    <td>${viaje.nombre_viaje}</td>
+                    <td>${formatDate(viaje.fecha_inicio)}</td>
+                    <td>${formatDate(viaje.fecha_final)}</td>
+                    <td>${viaje.presupuesto_base}</td>
+                    <td>${viaje.estado}</td>
+                    <td>${viaje.id_usuario}</td>
+                    <td>${viaje.fecha_creacion}</td>
+                    <td>
+                        <button onclick="editViaje(${viaje.id_viaje})" class="btn btn-sm btn-warning">Editar</button>
+                        <button onclick="deleteViaje(${viaje.id_viaje})" class="btn btn-sm btn-danger">Eliminar</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+function formatDate(dateString) {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+}
+
+function editViaje(idViaje) {
+    console.log(`Editando viaje con ID: ${idViaje}`);
+}
+
+// Llamar a la función con el userId correspondiente después de que el usuario haya iniciado sesión
+const userId = 13; // Este es un ejemplo; usa el userId real del usuario
+cargarProximosViajes(userId);
+
+
+
+// Cancelar edición de viajes general
 cancelBtn.addEventListener('click', () => {
     resetForm();
 });
 
-// Inicializar campos de fecha y cargar viajes
+// Inicializar campos de fecha y cargar viajes  general
 setupDateFields();
 loadViajes();

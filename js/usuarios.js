@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(`../bd/usuarios.php/viajes?usuario_id=${userId}`)
         .then(response => response.json())
         .then(viajes => {
-            console.log(viajes); // Aquí puedes manejar la respuesta y mostrar los viajes
+            console.log(viajes);
         }).catch(error => console.error('Error:', error));
     }
 
@@ -129,8 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(`../bd/usuarios.php/grupos?usuario_id=${userId}`)
             .then(response => response.json())
             .then(grupos => {
-                console.log(grupos); // Aquí puedes manejar la respuesta y mostrar los grupos
-                // Por ejemplo, agregar los grupos a una tabla en el HTML
+                console.log(grupos);
             }).catch(error => console.error('Error:', error));
     }
 

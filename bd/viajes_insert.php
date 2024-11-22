@@ -41,6 +41,13 @@ class ViajesAPI
         if (!in_array($data['estado'], ['Planificado', 'En Curso', 'Finalizado'])) {
             $errors[] = "Estado inválido";
         }
+        if (empty($data['id_usuario'])) {
+            $errors[] = "El id_usuario es requerido";
+        }
+
+        if (empty($data['fecha_creacion'])) {
+            $errors[] = "La fecha de creacion es requerida";
+        }
 
         return $errors;
     }
@@ -65,8 +72,8 @@ class ViajesAPI
             }
 
             $stmt = $this->conn->prepare("
-                INSERT INTO viajes (nombre_viaje, fecha_inicio, fecha_final, presupuesto_base, estado)
-                VALUES (:nombre_viaje, :fecha_inicio, :fecha_final, :presupuesto_base, :estado)
+                INSERT INTO viajes (nombre_viaje, fecha_inicio, fecha_final, presupuesto_base, estado, id_usuario, fecha_creacion)
+                VALUES (:nombre_viaje, :fecha_inicio, :fecha_final, :presupuesto_base, :estado, :id_usuario, :fecha_creacion)
             ");
 
             $stmt->execute([
@@ -74,7 +81,9 @@ class ViajesAPI
                 ':fecha_inicio' => $data['fecha_inicio'],
                 ':fecha_final' => $data['fecha_final'],
                 ':presupuesto_base' => $data['presupuesto_base'],
-                ':estado' => $data['estado']
+                ':estado' => $data['estado'],
+                ':id_usuario' => $data['id_usuario'],
+                ':fecha_creacion' => $data['fecha_creacion']
             ]);
 
             return $this->sendResponse(["message" => "Viaje creado exitosamente", "id" => $this->conn->lastInsertId()], 201);
@@ -97,7 +106,9 @@ class ViajesAPI
                     fecha_inicio = :fecha_inicio,
                     fecha_final = :fecha_final,
                     presupuesto_base = :presupuesto_base,
-                    estado = :estado
+                    estado = :estado,
+                    id_usuario = :id_usuario,
+                    fecha_creacion = :fecha_creacion
                 WHERE id_viaje = :id_viaje
             ");
 
@@ -169,6 +180,8 @@ class ViajesAPI
             $this->sendResponse(["error" => "Error interno del servidor: " . $e->getMessage()], 500);
         }
     }
+
+
 }
 
 // Uso de la API

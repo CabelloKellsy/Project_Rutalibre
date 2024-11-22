@@ -37,6 +37,14 @@
                 <option value="Finalizado">Finalizado</option>
             </select>
         </div>
+        <div>
+            <label class="form-label">Id del Usuario:</label>
+            <input type="text" class="form-control" id="id_usuario" name="id_usuario" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Fecha de creación:</label>
+            <input type="date" class="form-control" id="fecha_creacion" name="fecha_creacion" required>
+        </div>
         <button type="submit" class="btn btn-primary" id="submitBtn">Guardar</button>
         <button type="button" class="btn btn-secondary" id="cancelBtn" style="display: none;">Cancelar</button>
     </form>
@@ -52,6 +60,8 @@
                     <th>Fecha Final</th>
                     <th>Presupuesto</th>
                     <th>Estado</th>
+                    <th>Id del Usuario</th>
+                    <th>Fecha de creación</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
