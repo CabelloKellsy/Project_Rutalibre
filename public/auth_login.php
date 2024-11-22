@@ -4,6 +4,7 @@ ob_start();
 
 include '../bd/connection.php'; // Conexión a la base de datos
 
+
 $loginError = "";
 
 // Procesar formulario de login
