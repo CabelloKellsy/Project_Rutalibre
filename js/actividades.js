@@ -5,7 +5,6 @@ function obtenerIdViajeDeURL() {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get('id_viaje');
 }
-
 async function cargarActividades(idViaje) {
     if (!idViaje) {
         mostrarError('ID de viaje no especificado');
