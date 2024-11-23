@@ -42,8 +42,8 @@ function formatDate(dateString) {
 }
 
 // Llamar a la función con el userId correspondiente después de que el usuario haya iniciado sesión
-//const userId = 13; // Este es un ejemplo; usa el userId real del usuario
-const userId = document.getElementById('userId');
+const userId = 13; // Este es un ejemplo; usa el userId real del usuario
+// const userId = document.getElementById('userId');
 cargarProximosViajes(userId);
 
 
