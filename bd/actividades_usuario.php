@@ -2,20 +2,24 @@
 header('Content-Type: application/json');
 include 'connection.php';
 
-class ActividadesAPI {
+class ActividadesAPI
+{
     private $conn;
 
-    public function __construct($conn) {
+    public function __construct($conn)
+    {
         $this->conn = $conn;
     }
 
-    public function sendResponse($data, $statusCode = 200) {
+    public function sendResponse($data, $statusCode = 200)
+    {
         http_response_code($statusCode);
         echo json_encode($data);
         exit;
     }
 
-    private function validateData($data) {
+    private function validateData($data)
+    {
         $errors = [];
 
         if (empty($data['nombre_actividad'])) {
@@ -41,10 +45,12 @@ class ActividadesAPI {
         return $errors;
     }
 
-    public function getActividadesByViaje($viajeId) {
+    public function getActividadesByViaje($viajeId)
+    {
         try {
             $stmt = $this->conn->prepare("
                 SELECT 
+                    a.id_actividad,
                     a.nombre_actividad,
                     a.descripcion,
                     a.fecha_inicio,
@@ -77,7 +83,8 @@ class ActividadesAPI {
         }
     }
 
-    public function getActividadesByUsuario($userId) {
+    public function getActividadesByUsuario($userId)
+    {
         try {
             $stmt = $this->conn->prepare("
                 SELECT 
@@ -102,7 +109,8 @@ class ActividadesAPI {
         }
     }
 
-    public function createActividad($data) {
+    public function createActividad($data)
+    {
         try {
             $errors = $this->validateData($data);
             if (!empty($errors)) {
@@ -142,7 +150,8 @@ class ActividadesAPI {
         }
     }
 
-    public function updateActividad($id, $data) {
+    public function updateActividad($id, $data)
+    {
         try {
             $errors = $this->validateData($data);
             if (!empty($errors)) {
@@ -179,7 +188,8 @@ class ActividadesAPI {
         }
     }
 
-    public function deleteActividad($id) {
+    public function deleteActividad($id)
+    {
         try {
             $stmt = $this->conn->prepare("DELETE FROM actividades WHERE id_actividad = :id_actividad");
             $stmt->execute([':id_actividad' => $id]);
@@ -194,7 +204,8 @@ class ActividadesAPI {
         }
     }
 
-    public function handleRequest() {
+    public function handleRequest()
+    {
         $method = $_SERVER['REQUEST_METHOD'];
         $action = isset($_GET['action']) ? $_GET['action'] : '';
 
