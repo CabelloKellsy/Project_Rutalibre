@@ -120,6 +120,7 @@ body {
     font-size: 35px;
     color: #00bcd4;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .user-menu .dropdown {

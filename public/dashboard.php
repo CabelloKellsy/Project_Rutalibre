@@ -8,6 +8,7 @@ if (!isset($_SESSION['email'])) {
 }
 // Obtener el user_id de la sesión
 $userId = $_SESSION['user_id'];
+
 ?>
 
 <!DOCTYPE html>
@@ -25,38 +26,30 @@ $userId = $_SESSION['user_id'];
 
 <body>
     <header>
-        <nav class="navbar">
-            <div class="container">
-                <!-- Logotipo -->
-                <a class="logo" href="#">
-                    <img src="../assets/images/logo.png" alt="RutaLibre Logo">
-                </a>
-
-                <!-- Enlaces de navegación -->
-                <div class="nav-links">
-                    <a href="#" class="nav-link">Viajes</a>
-                    <a href="#" class="nav-link">Asistencia técnica</a>
-                </div>
-
-                <!-- Menú de usuario -->
-                <div class="user-menu">
-                    <a href="#" class="user-icon">
-                        <i class="fas fa-user-circle"></i>
-                    </a>
-                    <div class="dropdown">
-                        <a href="#" class="dropdown-item">Configuración de perfil</a>
-                        <a href="logout.php" class="dropdown-item">Cerrar sesión</a>
-                    </div>
-                </div>
+        <div class="logo">
+            <img src="../assets/images/logo.png" alt="RutaLibre Logo">
+        </div>
+        <!-- Enlaces de navegación -->
+        <div class="nav-links">
+            <a href="dashboard.php" class="nav-link">Viajes</a>
+            <a href="#" class="nav-link">Asistencia técnica</a>
+        </div>
+        <!-- Menú de usuario -->
+        <div class="user-menu">
+            <a href="#" class="user-icon">
+                <i class="fas fa-user-circle"></i>
+            </a>
+            <div class="dropdown">
+                <a href="configuracion_perf.php" class="dropdown-item">Configuración de perfil</a>
+                <a href="logout.php" class="dropdown-item">Cerrar sesión</a>
             </div>
-        </nav>
+        </div>
     </header>
 
 
     <!-- Contenido principal -->
     <div class="container mt-5">
         <h2 class="mb-4">Tus viajes</h2>
-        <input type="hidden" value="<?php echo $userId; ?>" id="userId" />
         <!-- Botón para añadir un viaje -->
         <div class="mt-4">
             <a href="crear_viaje.php" class="btn btn-primary">+ Añadir un viaje</a>
@@ -65,15 +58,20 @@ $userId = $_SESSION['user_id'];
         <!-- Pestañas -->
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="proximos-viajes-tab" data-bs-toggle="tab" data-bs-target="#proximos-viajes" type="button" role="tab" aria-controls="proximos-viajes" aria-selected="true">Próximos viajes</button>
+                <button class="nav-link active" id="proximos-viajes-tab" data-bs-toggle="tab"
+                    data-bs-target="#proximos-viajes" type="button" role="tab" aria-controls="proximos-viajes"
+                    aria-selected="true">Próximos viajes</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="viajes-anteriores-tab" data-bs-toggle="tab" data-bs-target="#viajes-anteriores" type="button" role="tab" aria-controls="viajes-anteriores" aria-selected="false">Viajes anteriores</button>
+                <button class="nav-link" id="viajes-anteriores-tab" data-bs-toggle="tab"
+                    data-bs-target="#viajes-anteriores" type="button" role="tab" aria-controls="viajes-anteriores"
+                    aria-selected="false">Viajes anteriores</button>
             </li>
         </ul>
 
         <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="proximos-viajes" role="tabpanel" aria-labelledby="proximos-viajes-tab">
+            <div class="tab-pane fade show active" id="proximos-viajes" role="tabpanel"
+                aria-labelledby="proximos-viajes-tab">
                 <div class="table-responsive mt-3">
                     <table class="table table-striped" id="tablaProximosViajes">
                         <thead>
@@ -121,7 +119,8 @@ $userId = $_SESSION['user_id'];
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="presupuesto_base">Presupuesto base:</label>
-                        <input type="number" class="form-control" id="presupuesto_base" name="presupuesto_base" required min="0">
+                        <input type="number" class="form-control" id="presupuesto_base" name="presupuesto_base" required
+                            min="0">
                         <div class="invalid-feedback">Por favor, introduce el presupuesto base.</div>
                     </div>
                     <div class="mb-3">
@@ -137,14 +136,16 @@ $userId = $_SESSION['user_id'];
                     <button type="button" class="btn btn-primary" id="cancelEditBtn">Cancelar</button>
                 </form>
             </div>
-
-
         </div>
 
-    </div>
+
     <script src="../js/viajes_usuario.js"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+            cargarProximosViajes(<?php echo $userId; ?>);
+    </script>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
