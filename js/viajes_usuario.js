@@ -19,20 +19,11 @@ async function cargarProximosViajes(userId) {
                 <td>${viaje.destino}</td>
                 <td>${viaje.estado}</td>
                 <td>
-                 <a href="#" onclick="editViaje(${viaje.id_viaje})" class="link-icon">
-                <i class="fas fa-edit"></i> Editar
-    </a>
-    <a href="#" onclick="deleteViaje(${viaje.id_viaje})" class="link-icon">
-        <i class="fas fa-trash-alt"></i> Eliminar
-    </a>
-<a href="actividades.php?id_viaje=${viaje.id_viaje}" class="link-icon">
-    <i class="fas fa-tasks"></i> Actividades
-</a>
-
-    <a href="#" onclick="añadirdestinos(${viaje.id_viaje})" class="link-icon">
-        <i class="fas fa-map-marker-alt"></i> Añadir destino
-    </a>
-</td>
+                <a href="#" onclick="editViaje(${viaje.id_viaje})" class="link-icon"><i class="fas fa-edit"></i> Editar</a>
+                <a href="#" onclick="deleteViaje(${viaje.id_viaje})" class="link-icon"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                <a href="actividades.php?id_viaje=${viaje.id_viaje}" class="link-icon"><i class="fas fa-tasks"></i> Actividades</a>
+                <a href="#" onclick="añadirdestinos(${viaje.id_viaje})" class="link-icon"><i class="fas fa-map-marker-alt"></i> Añadir destino</a>
+                </td>
 
             `;
             tbody.appendChild(tr);
