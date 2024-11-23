@@ -80,6 +80,7 @@ $userId = $_SESSION['user_id'];
                                 <th>Fecha Inicio</th>
                                 <th>Fecha Final</th>
                                 <th>Presupuesto</th>
+                                <th>Destino</th>
                                 <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
@@ -101,6 +102,7 @@ $userId = $_SESSION['user_id'];
                                 <th>Fecha Inicio</th>
                                 <th>Fecha Final</th>
                                 <th>Presupuesto</th>
+                                <th>Destino</th>
                                 <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
@@ -116,7 +118,7 @@ $userId = $_SESSION['user_id'];
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="editViajeModalLabel">Editar Viaje</h5>
+                            <h2 class="modal-title" id="editViajeModalLabel">Editar Viaje</h2>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Cerrar"></button>
                         </div>
@@ -147,6 +149,11 @@ $userId = $_SESSION['user_id'];
                                     <input type="number" class="form-control" id="presupuesto_base"
                                         name="presupuesto_base" required min="0">
                                     <div class="invalid-feedback">Por favor, introduce el presupuesto base.</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="destino">Destino:</label>
+                                    <input type="text" class="form-control" id="destino" name="destino" placeholder="Destino">
+                                    <div class="invalid-feedback">Por favor, introduce el destino.</div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="estado">Estado:</label>

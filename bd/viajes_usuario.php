@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['userId']) && isset($_GE
                     v.fecha_inicio,
                     v.fecha_final, 
                     v.presupuesto_base,
+                    v.destino,
                     v.estado,
                     v.fecha_creacion
                 FROM
@@ -46,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['userId']) && isset($_GE
                      v.fecha_inicio,
                      v.fecha_final,
                      v.presupuesto_base,
+                     v.destino,
                      v.estado,
                      v.fecha_creacion
                  FROM
@@ -79,18 +81,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['userId']) && isset($_GE
                     fecha_inicio = :fecha_inicio,
                     fecha_final = :fecha_final,
                     presupuesto_base = :presupuesto_base,
+                    destino = :destino,
                     estado = :estado
                 WHERE id_viaje = :id_viaje
             ");
-
             $data = [
                 "id_viaje" => $_POST['id_viaje'],
                 "nombre_viaje" => $_POST['nombre_viaje'],
                 "fecha_inicio" => $_POST['fecha_inicio'],
                 "fecha_final" => $_POST['fecha_final'],
                 "presupuesto_base" => $_POST['presupuesto_base'],
+                "destino" => $_POST['destino'] ?? null, // Maneja destino vacío
                 "estado" => $_POST['estado']
             ];
+            
             $stmt->execute($data);
 
             if ($stmt->rowCount() === 0) {

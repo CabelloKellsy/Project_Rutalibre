@@ -16,6 +16,7 @@ async function cargarProximosViajes(userId) {
                 <td>${formatDate(viaje.fecha_inicio)}</td>
                 <td>${formatDate(viaje.fecha_final)}</td>
                 <td>${viaje.presupuesto_base}</td>
+                <td>${viaje.destino}</td>
                 <td>${viaje.estado}</td>
                 <td>
                  <a href="#" onclick="editViaje(${viaje.id_viaje})" class="link-icon">
@@ -59,6 +60,7 @@ async function cargarViajesAnteriores(userId) {
                 <td>${formatDate(viaje.fecha_inicio)}</td>
                 <td>${formatDate(viaje.fecha_final)}</td>
                 <td>${viaje.presupuesto_base}</td>
+                <td>${viaje.destino}</td>
                 <td>${viaje.estado}</td>
                 <td>
     <a href="#" onclick="deleteViaje(${viaje.id_viaje})" class="link-icon">
@@ -90,7 +92,9 @@ async function editViaje(idViaje) {
             document.getElementById('fecha_inicio').value = viaje.fecha_inicio;
             document.getElementById('fecha_final').value = viaje.fecha_final;
             document.getElementById('presupuesto_base').value = viaje.presupuesto_base;
-            document.getElementById('estado').value = viaje.estado || 'Planificado';
+            document.getElementById('destino').value = viaje.destino || ''; // Asegurar que el campo se complete, incluso si está vacío
+            document.getElementById('estado').value = viaje.estado;
+ 
 
             // Mostrar el modal de edición
             const editViajeModal = new bootstrap.Modal(document.getElementById('editViajeModal'));

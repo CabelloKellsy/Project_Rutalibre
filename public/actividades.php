@@ -9,7 +9,7 @@ if (!isset($_SESSION['email'])) {
 // Obtener el user_id de la sesión
 $userId = $_SESSION['user_id'];
 $idViaje = $_GET['id_viaje'];
-?> 
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -76,26 +76,20 @@ $idViaje = $_GET['id_viaje'];
     <div id="contenedorActividades" class="container mt-4">
         <!-- El contenido se cargará dinámicamente -->
     </div>
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Script para inicializar la carga de actividades -->
     <script src="../js/actividades.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Asumiendo que tienes el ID del viaje en alguna parte
-            const idViaje = 1/* aquí debes obtener el ID del viaje */
-            if (idViaje) {
-                document.getElementById('viajes_id_viajes').value = idViaje;
-                cargarActividades(idViaje);
-            }
-        });
-    </script>
-    <!-- <script>
         // Cuando el documento esté listo, cargar las actividades
         document.addEventListener('DOMContentLoaded', function() {
             cargarActividades(<?php echo $idViaje; ?>);
         });
-    </script> -->
+    </script>
 </body>
 
 </html>

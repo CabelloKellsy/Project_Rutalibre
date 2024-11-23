@@ -83,58 +83,60 @@ try {
 </head>
 
 <body>
-<div class="container">
-        <div class="profile-container">
-            <h1 class="text-center mb-4">Configuración de Perfil</h1>
-        <!-- Mostrar mensajes de éxito o error -->
-        <?php if ($message): ?>
-            <div class="alert alert-info">
-                <?php echo htmlspecialchars($message); ?>
-            </div>
-        <?php endif; ?>
+<div class="form-background">
+        <div class="form-container">
+            <h2>Configuración de Perfil</h2>
+            <?php if ($message): ?>
+                <div class="alert alert-info">
+                    <?php echo htmlspecialchars($message); ?>
+                </div>
+            <?php endif; ?>
+            <form method="POST" action="configuracion_perf.php">
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" name="nombre" id="nombre" class="form-control"
+                        value="<?php echo htmlspecialchars($user['nombre']); ?>">
+                </div>
 
-        <form method="POST" action="configuracion_perf.php">
-            <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" name="nombre" id="nombre" class="form-control" value="<?php echo htmlspecialchars($user['nombre']); ?>" >
-            </div>
+                <div class="mb-3">
+                    <label for="apellido" class="form-label">Apellidos</label>
+                    <input type="text" name="apellido" id="apellido" class="form-control"
+                        value="<?php echo htmlspecialchars($user['apellido']); ?>">
+                </div>
 
-            <div class="mb-3">
-                <label for="apellido" class="form-label">Apellidos</label>
-                <input type="text" name="apellido" id="apellido" class="form-control" value="<?php echo htmlspecialchars($user['apellido']); ?>" >
-            </div>
+                <div class="mb-3">
+                    <label for="tipo_usuario" class="form-label">Tipo de cuenta</label>
+                    <select name="tipo_usuario" id="tipo_usuario" class="form-select" required>
+                        <option value="Particular" <?php echo $user['tipo_usuario'] === 'Particular' ? 'selected' : ''; ?>>Particular</option>
+                        <option value="Empresa" <?php echo $user['tipo_usuario'] === 'Empresa' ? 'selected' : ''; ?>>Empresa</option>
+                    </select>
+                </div>
 
-            <div class="mb-3">
-                <label for="tipo_usuario" class="form-label">Tipo de cuenta</label>
-                <select name="tipo_usuario" id="tipo_usuario" class="form-control" required>
-                    <option value="Particular" <?php echo $user['tipo_usuario'] === 'Particular' ? 'selected' : ''; ?>>Particular</option>
-                    <option value="Empresa" <?php echo $user['tipo_usuario'] === 'Empresa' ? 'selected' : ''; ?>>Empresa</option>
-                </select>
-            </div>
+                <hr>
 
-            <hr>
+                <h5>Cambiar Contraseña</h5>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña Actual</label>
+                    <input type="password" name="password" id="password" class="form-control"
+                        placeholder="Introduce tu contraseña actual (opcional)">
+                </div>
 
-            <h2>Cambiar Contraseña</h2>
-            <div class="mb-3">
-                <label for="password" class="form-label">Contraseña Actual</label>
-                <input type="password" name="password" id="password" class="form-control">
-            </div>
+                <div class="mb-3">
+                    <label for="nueva_contraseña" class="form-label">Nueva Contraseña</label>
+                    <input type="password" name="nueva_contraseña" id="nueva_contraseña" class="form-control"
+                        placeholder="Introduce una nueva contraseña (opcional)">
+                </div>
 
-            <div class="mb-3">
-                <label for="nueva_contraseña" class="form-label">Nueva Contraseña</label>
-                <input type="password" name="nueva_contraseña" id="nueva_contraseña" class="form-control">
-            </div>
+                <div class="mb-3">
+                    <label for="confirmar_contraseña" class="form-label">Confirmar Nueva Contraseña</label>
+                    <input type="password" name="confirmar_contraseña" id="confirmar_contraseña" class="form-control"
+                        placeholder="Confirma la nueva contraseña">
+                </div>
 
-            <div class="mb-3">
-                <label for="confirmar_contraseña" class="form-label">Confirmar Nueva Contraseña</label>
-                <input type="password" name="confirmar_contraseña" id="confirmar_contraseña" class="form-control">
-            </div>
-
-            <div class="d-flex justify-content-between">
-                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                <a href="dashboard.php" class="btn btn-secondary">Volver</a>
-            </div>
-        </form>
+                <button type="submit" class="btn btn-primary w-100">Guardar Cambios</button>
+                <a href="dashboard.php" class="btn btn-secondary w-100 mt-2">Volver</a>
+            </form>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>

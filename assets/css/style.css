@@ -1307,3 +1307,8 @@ h2 {
 .link-icon.destination i {
     color: #d8cb19; /* Amarillo para destino */
 }
+.modal-title{
+
+    color: black;
+    font-size: 22px;
+}
