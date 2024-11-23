@@ -1,11 +1,16 @@
 <?php
 session_start();
-include '../bd/connection.php'; // Conexión a la base de datos
+include '../bd/connection.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use Dotenv\Dotenv;
 
-require '../vendor/autoload.php'; // Ruta donde Composer instaló PHPMailer
+require '../vendor/autoload.php'; // Carga Composer y Dotenv
+
+// Cargar las variables del .env
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
 
 $message = "";
 
@@ -22,31 +27,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user = $stmt->fetch();
 
             if ($user) {
-                // Generar un token único
                 $token = bin2hex(random_bytes(50));
-
-                // Insertar el token en la base de datos con un tiempo de expiración
-                $stmt = $conn->prepare("UPDATE usuarios SET password_reset_token = :token, token_expiry = DATE_ADD(NOW(), INTERVAL 1 HOUR) WHERE email = :email");
+                $stmt = $conn->prepare("
+                    UPDATE usuarios 
+                    SET password_reset_token = :token, token_expiry = DATE_ADD(NOW(), INTERVAL 1 HOUR) 
+                    WHERE email = :email
+                ");
                 $stmt->bindParam(':token', $token);
                 $stmt->bindParam(':email', $email);
                 $stmt->execute();
 
-                // Enlace de restablecimiento
-                $resetLink = "http://localhost/Proyecto/Project_Rutalibre/public/auth_user_pass_reset.php?token=$token";
+                $resetLink = "http://localhost/Project_Rutalibre/public/auth_user_pass_reset.php?token=$token";
 
-                // Configuración de PHPMailer
                 $mail = new PHPMailer(true);
 
                 try {
                     $mail->isSMTP();
-                    $mail->Host = $_ENV['MAIL_HOST']; // Cargado desde .env
+                    $mail->Host = $_ENV['MAIL_HOST'];
                     $mail->SMTPAuth = true;
-                    $mail->Username = $_ENV['MAIL_USERNAME']; // Cargado desde .env
-                    $mail->Password = $_ENV['MAIL_PASSWORD']; // Cargado desde .env
-                    $mail->SMTPSecure = $_ENV['MAIL_ENCRYPTION']; // Cargado desde .env
-                    $mail->Port = $_ENV['MAIL_PORT']; // Cargado desde .env
+                    $mail->Username = $_ENV['MAIL_USERNAME'];
+                    $mail->Password = $_ENV['MAIL_PASSWORD'];
+                    $mail->SMTPSecure = $_ENV['MAIL_ENCRYPTION'];
+                    $mail->Port = $_ENV['MAIL_PORT'];
 
-                    
                     $mail->setFrom('apprutalibre@gmail.com', 'RutaLibre');
                     $mail->addAddress($email);
 
@@ -57,19 +60,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $mail->AltBody = "Haz clic en el siguiente enlace para restablecer tu contraseña: $resetLink";
 
                     $mail->send();
-                    $message = "Te hemos enviado un correo con un enlace para restablecer tu contraseña.";
+                    $message = "Si el correo está registrado, recibirás un enlace para restablecer tu contraseña.";
                 } catch (Exception $e) {
-                    $message = "Error al enviar el correo: " . $mail->ErrorInfo;
+                    error_log("Error al enviar el correo: " . $mail->ErrorInfo);
+                    $message = "Hubo un error al enviar el correo. Inténtalo más tarde.";
                 }
             } else {
-                $message = "El correo electrónico no está registrado.";
+                $message = "Si el correo está registrado, recibirás un enlace para restablecer tu contraseña.";
             }
         } catch (PDOException $e) {
-            $message = "Error en la conexión: " . $e->getMessage();
+            error_log("Error en la base de datos: " . $e->getMessage());
+            $message = "Hubo un error. Inténtalo más tarde.";
         }
     }
 }
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="es">
