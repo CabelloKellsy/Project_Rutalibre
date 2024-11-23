@@ -156,8 +156,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </header>
     
-    <div class="container mt-5">
-        <div class="crear-viaje-form">
+    <div class="form-background">
+        <div class="form-container">
             <h2>Crear Nuevo Viaje</h2>
             <?php if (isset($_SESSION['error'])): ?>
                 <div class="alert alert-danger"><?php echo htmlspecialchars($_SESSION['error']); unset($_SESSION['error']); ?></div>
@@ -206,7 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input type="number" class="form-control" id="presupuesto_base" name="presupuesto_base" required min="0">
                 </div>
 
-                <button type="submit" class="btn btn-primary">Crear Viaje</button>
+                <button type="submit" class="btn btn-primary w-100">Crear Viaje</button>
             </form>
         </div>
     </div>

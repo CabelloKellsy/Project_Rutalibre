@@ -47,11 +47,10 @@ $userId = $_SESSION['user_id'];
 
     <!-- Contenido principal -->
     <div class="container mt-5">
-        <h1 class="mb-4">Tus viajes</h1>
         <input type="hidden" value="<?php echo $userId; ?>" id="userId">
         <!-- Botón para añadir un viaje -->
         <div class="mt-4">
-            <a href="crear_viaje.php" class="btn btn-primary">+ Añadir un viaje</a>
+            <a href="crear_viaje.php" class="footer-button register">+ Añadir un viaje</a>
         </div><br>
 
         <!-- Pestañas -->

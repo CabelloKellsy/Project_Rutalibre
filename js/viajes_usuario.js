@@ -18,9 +18,21 @@ async function cargarProximosViajes(userId) {
                 <td>${viaje.presupuesto_base}</td>
                 <td>${viaje.estado}</td>
                 <td>
-                    <button onclick="editViaje(${viaje.id_viaje})" class="btn btn-sm btn-warning">Editar</button>
-                    <button onclick="deleteViaje(${viaje.id_viaje})" class="btn btn-sm btn-danger">Eliminar</button>
-                    <button onclick="añadiractividades(${viaje.id_viaje})" class="btn btn-sm btn-danger">Añadir actividades</button
+<td>
+    <a href="#" onclick="editViaje(${viaje.id_viaje})" class="link-icon">
+        <i class="fas fa-edit"></i> Editar
+    </a>
+    <a href="#" onclick="deleteViaje(${viaje.id_viaje})" class="link-icon">
+        <i class="fas fa-trash-alt"></i> Eliminar
+    </a>
+    <a href="#" onclick="añadiractividades(${viaje.id_viaje})" class="link-icon">
+        <i class="fas fa-tasks"></i> Añadir actividades
+    </a>
+    <a href="#" onclick="añadirdestinos(${viaje.id_viaje})" class="link-icon">
+        <i class="fas fa-map-marker-alt"></i> Añadir destino
+    </a>
+</td>
+
                 </td>
             `;
             tbody.appendChild(tr);
