@@ -134,6 +134,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
+<header>
+        <div class="logo">
+            <img src="../assets/images/logo.png" alt="RutaLibre Logo">
+        </div>
+        <!-- Enlaces de navegación -->
+        <div class="header-right">
+            <a href="index.php" class="register-btn">Inicio</a>
+            <a href="dashboard.php" class="register-btn">Viajes</a>
+            <a href="asistencia_tecnica.php" class="register-btn">Asistencia técnica</a>
+        </div>
+        <!-- Menú de usuario -->
+        <div class="user-menu">
+            <a href="#" class="user-icon">
+                <i class="fas fa-user-circle"></i>
+            </a>
+            <div class="dropdown">
+                <a href="configuracion_perf.php" class="dropdown-item">Configuración de perfil</a>
+                <a href="logout.php" class="dropdown-item">Cerrar sesión</a>
+            </div>
+        </div>
+    </header>
+    
     <div class="container mt-5">
         <div class="crear-viaje-form">
             <h2>Crear Nuevo Viaje</h2>
