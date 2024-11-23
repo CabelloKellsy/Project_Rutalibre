@@ -18,22 +18,21 @@ async function cargarProximosViajes(userId) {
                 <td>${viaje.presupuesto_base}</td>
                 <td>${viaje.estado}</td>
                 <td>
-<td>
-    <a href="#" onclick="editViaje(${viaje.id_viaje})" class="link-icon">
-        <i class="fas fa-edit"></i> Editar
+                 <a href="#" onclick="editViaje(${viaje.id_viaje})" class="link-icon">
+                <i class="fas fa-edit"></i> Editar
     </a>
     <a href="#" onclick="deleteViaje(${viaje.id_viaje})" class="link-icon">
         <i class="fas fa-trash-alt"></i> Eliminar
     </a>
-    <a href="#" onclick="añadiractividades(${viaje.id_viaje})" class="link-icon">
-        <i class="fas fa-tasks"></i> Añadir actividades
-    </a>
+<a href="actividades.php?id_viaje=${viaje.id_viaje}" class="link-icon">
+    <i class="fas fa-tasks"></i> Actividades
+</a>
+
     <a href="#" onclick="añadirdestinos(${viaje.id_viaje})" class="link-icon">
         <i class="fas fa-map-marker-alt"></i> Añadir destino
     </a>
 </td>
 
-                </td>
             `;
             tbody.appendChild(tr);
         });
@@ -62,7 +61,9 @@ async function cargarViajesAnteriores(userId) {
                 <td>${viaje.presupuesto_base}</td>
                 <td>${viaje.estado}</td>
                 <td>
-                    <button onclick="deleteViaje(${viaje.id_viaje})" class="btn btn-sm btn-danger">Eliminar</button>
+    <a href="#" onclick="deleteViaje(${viaje.id_viaje})" class="link-icon">
+        <i class="fas fa-trash-alt"></i> Eliminar
+    </a>
                 </td>
             `;
             tbody.appendChild(tr);
@@ -76,7 +77,6 @@ function formatDate(dateString) {
     const options = { year: 'numeric', month: 'short', day: 'numeric' };
     return new Date(dateString).toLocaleDateString(undefined, options);
 }
-
 async function editViaje(idViaje) {
     try {
         const response = await fetch(`../bd/viajes_insert.php?id_viaje=${idViaje}`);
@@ -84,25 +84,23 @@ async function editViaje(idViaje) {
         const viaje = viajes.find(v => v.id_viaje == idViaje);
 
         if (viaje) {
-            document.getElementById('editViajeFormContainer').style.display = 'block';
+            // Rellenar los datos del formulario
             document.getElementById('id_viaje').value = viaje.id_viaje;
             document.getElementById('nombre_viaje').value = viaje.nombre_viaje;
-            document.getElementById('fecha_inicio').value = formatDate(viaje.fecha_inicio);
-            document.getElementById('fecha_final').value = formatDate(viaje.fecha_final);
+            document.getElementById('fecha_inicio').value = viaje.fecha_inicio;
+            document.getElementById('fecha_final').value = viaje.fecha_final;
             document.getElementById('presupuesto_base').value = viaje.presupuesto_base;
+            document.getElementById('estado').value = viaje.estado || 'Planificado';
 
-            // Establecer el estado a "planificado" por defecto si no tiene valor
-            document.getElementById('estado').value = viaje.estado || 'planificado';
-
-            // Establecer el atributo min para evitar fechas pasadas
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('fecha_inicio').setAttribute('min', today);
-            document.getElementById('fecha_final').setAttribute('min', today);
+            // Mostrar el modal de edición
+            const editViajeModal = new bootstrap.Modal(document.getElementById('editViajeModal'));
+            editViajeModal.show();
         }
     } catch (error) {
         alert('Error al cargar el viaje: ' + error.message);
     }
 }
+
 
 document.getElementById('cancelEditBtn').addEventListener('click', function () {
     document.getElementById('editViajeFormContainer').style.display = 'none';
@@ -158,3 +156,5 @@ async function deleteViaje(idViaje) {
         }
     }
 }
+
+
