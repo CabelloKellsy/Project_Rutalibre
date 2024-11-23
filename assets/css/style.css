@@ -7,7 +7,7 @@
 }
 
 body {
-    background-color: #85e997;
+    background-color: #fff;
     color: #fff;
 }
 
@@ -155,7 +155,6 @@ body {
 
 /* Estilo de los enlaces */
 .auth-box a {
-    color: #00bcd4;
     text-decoration: none;
 }
 
@@ -266,14 +265,14 @@ body {
 
 /* Botón secundario para regresar a inicio */
 .btn-secondary {
-    background-color: #f8f8f8;
+    background-color: #0097a7;
     /* Color azul para botón secundario */
     color: #fff;
     /* Texto en blanco */
 }
 
 .btn-secondary:hover {
-    background-color: #0097a7;
+    background-color: black;
     /* Color más oscuro al pasar el cursor */
     color: #fff;
     /* Asegura que el texto siga siendo blanco en el hover */
@@ -448,6 +447,7 @@ header {
 
 h2 {
     position: relative;
+    color: #fff;
     /* Permite que el título esté por encima de la imagen */
     font-size: 2.5em;
     margin-bottom: 10px;
@@ -613,7 +613,7 @@ h2 {
 
 /* Imagen más pequeña y centrada */
 .feature-image {
-    width: 30%;
+    width: 20%;
     /* Reduce el tamaño de la imagen */
     height: auto;
     border-radius: 8px;
@@ -985,6 +985,36 @@ h2 {
     box-shadow: 0 0 5px rgba(255, 127, 80, 0.5);
 }
 
+#messageContainer {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+    max-width: 300px;
+    padding: 10px;
+    border-radius: 5px;
+}
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+.alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+.dashboard-page h1{
+    text-align: center;
+    color: black;
+
+}
 
 /* Ajustes para pantallas pequeñas */
 @media (max-width: 768px) {
@@ -1056,4 +1086,38 @@ h2 {
         text-align: left;
     }
 
+
+}
+
+
+.profile-container {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 600px;
+    margin: 50px auto;
+}
+
+.profile-container h1 {
+    color: black;
+}
+
+.profile-container h2 {
+    font-size: 18px;
+    color: black;
+}
+.form-label {
+    font-weight: 500;
+    color: #495057;
+}
+
+.btn-primary {
+    background-color: #ff7b54;
+    border-color: #ff7b54;
+}
+
+.btn-primary:hover {
+    background-color: #ff5722;
+    border-color: #ff5722;
 }

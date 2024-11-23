@@ -70,9 +70,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <img src="../assets/images/logo.png" alt="RutaLibre Logo">
         </div>
         <!-- Enlaces de navegación -->
-        <div class="nav-links">
-            <a href="dashboard.php" class="nav-link">Viajes</a>
-            <a href="#" class="nav-link">Asistencia técnica</a>
+        <div class="header-right">
+            <a href="index.php" class="register-btn">Inicio</a>
+            <a href="dashboard.php" class="register-btn">Viajes</a>
+            <a href="asistencia_tecnica.php" class="register-btn">Asistencia técnica</a>
         </div>
         <!-- Menú de usuario -->
         <div class="user-menu">

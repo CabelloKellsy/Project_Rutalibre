@@ -1,3 +1,8 @@
+<?php
+session_start(); // Iniciar la sesión para verificar si el usuario está logueado
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -20,20 +25,37 @@
 </head>
 
 <!-- public\css\home.html -->
+
 <body>
     <header>
         <div class="logo">
             <img src="../assets/images/logo.png" alt="RutaLibre Logo">
         </div>
         <div class="header-right">
-            <a href="auth_register.php">
-                <button class="register-btn">Registrarse</button>
-            </a>
-            <a href="auth_login.php" class="user-icon">
-                <i class="fas fa-user-circle"></i>
-            </a>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <!-- Si el usuario está logueado -->
+                <a href="dashboard.php" class="register-btn">Ir al Dashboard</a>
+                <div class="user-menu">
+                    <a href="#" class="user-icon">
+                        <i class="fas fa-user-circle"></i>
+                    </a>
+                    <div class="dropdown">
+                        <a href="configuracion_perf.php" class="dropdown-item">Configuración de perfil</a>
+                        <a href="logout.php" class="dropdown-item">Cerrar sesión</a>
+                    </div>
+                </div>
+            <?php else: ?>
+                <!-- Si el usuario NO está logueado -->
+                <a href="auth_register.php">
+                    <button class="register-btn">Registrarse</button>
+                </a>
+                <a href="auth_login.php" class="user-icon">
+                    <i class="fas fa-user-circle"></i>
+                </a>
+            <?php endif; ?>
         </div>
     </header>
+
 
     <button id="back-to-top" title="Volver al inicio">𖤂</button>
 
@@ -58,7 +80,7 @@
         </div>
     </section>
 
-    <section class="features-section">
+    <section id="funcionalidades" class="features-section">
         <h2 class="titulo-oscuro">Funcionalidades de RutaLibre</h2>
         <img src="../assets/images/decoracion.png" alt="Decoración de ruta" class="title-decoration">
         <div class="features">
@@ -101,14 +123,14 @@
         </div>
     </section>
 
-    <section class="map-section">
+    <section id="map-destino" class="map-section">
         <h2 class="titulo-oscuro">Destinos Favoritos</h2>
         <p>Estos son algunos de los destinos más populares de nuestra aplicación.</p>
         <div class="map-container">
             <div id="map"></div>
         </div>
     </section>
-    
+
     <section class="feature-details">
         <!-- Sección 1: Votación de Destinos (Fondo Blanco) -->
         <div id="votacion-destinos" class="feature-detail">
@@ -200,17 +222,25 @@
             <div class="footer-links">
                 <h3>Enlaces Rápidos</h3>
                 <ul>
-                    <li><a href="#">Inicio</a></li>
-                    <li><a href="#">Funcionalidades</a></li>
-                    <li><a href="#">Mapa Interactivo</a></li>
-                    <li><a href="#">Política de Privacidad</a></li>
+                    <li><a href="index.php">Inicio</a></li>
+                    <li><a href="#funcionalidades">Funcionalidades</a></li>
+                    <li><a href="#map-destino">Mapa Interactivo</a></li>
+                    <?php if (isset($_SESSION['user_id'])): ?>
+                        <li><a href="dashboard.php">Mi Dashboard</a></li>
+                    <?php else: ?>
+                    <?php endif; ?>
                 </ul>
             </div>
 
             <div class="footer-account">
                 <h3>Cuenta</h3>
-                <a href="auth_login.php" class="footer-button connect">Conectar</a>
-                <a href="auth_register.php" class="footer-button register">Registrarse</a>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <a href="dashboard.php" class="footer-button connect">Dashboard</a>
+                    <a href="logout.php" class="footer-button register">Cerrar Sesión</a>
+                <?php else: ?>
+                    <a href="auth_login.php" class="footer-button connect">Conectar</a>
+                    <a href="auth_register.php" class="footer-button register">Registrarse</a>
+                <?php endif; ?>
             </div>
 
             <div class="footer-about">
@@ -230,9 +260,6 @@
             <p>&copy; 2024 RutaLibre. Todos los derechos reservados.</p>
         </div>
     </footer>
-
-
-
 
     <script src="../js/main.js"></script>
 

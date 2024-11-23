@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p class="register-prompt">¿No tienes una cuenta? <a href="auth_register.php" class="register-link">Regístrate</a></p>
 
             <!-- Botón para volver a inicio -->
-            <a href="index.html" class="btn btn-secondary">Volver a Inicio</a>
+            <a href="index.php" class="btn btn-secondary">Volver a Inicio</a>
         </div>
     </div>
 </body>

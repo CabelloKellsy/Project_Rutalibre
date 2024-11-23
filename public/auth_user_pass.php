@@ -39,13 +39,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 try {
                     $mail->isSMTP();
-                    $mail->Host = 'smtp.gmail.com';
+                    $mail->Host = $_ENV['MAIL_HOST']; // Cargado desde .env
                     $mail->SMTPAuth = true;
-                    $mail->Username = 'apprutalibre@gmail.com';
-                    $mail->Password = 'blax zytw cgrf oebf';
-                    $mail->SMTPSecure = 'tls';
-                    $mail->Port = 587;
+                    $mail->Username = $_ENV['MAIL_USERNAME']; // Cargado desde .env
+                    $mail->Password = $_ENV['MAIL_PASSWORD']; // Cargado desde .env
+                    $mail->SMTPSecure = $_ENV['MAIL_ENCRYPTION']; // Cargado desde .env
+                    $mail->Port = $_ENV['MAIL_PORT']; // Cargado desde .env
 
+                    
                     $mail->setFrom('apprutalibre@gmail.com', 'RutaLibre');
                     $mail->addAddress($email);
 
@@ -98,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
 
             <!-- Botón para volver a inicio -->
-            <a href="index.html" class="btn btn-secondary">Volver a Inicio</a>
+            <a href="index.php" class="btn btn-secondary">Volver a Inicio</a>
         </div>
     </div>
 </body>

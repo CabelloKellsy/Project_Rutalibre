@@ -10,7 +10,6 @@ if (!isset($_SESSION['email'])) {
 $userId = $_SESSION['user_id'];
 
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -21,18 +20,18 @@ $userId = $_SESSION['user_id'];
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/style.css"> <!-- Estilos personalizados opcionales -->
+    <link rel="stylesheet" href="../assets/css/style.css"> <!-- Estilos generales -->
 </head>
 
-<body>
+<body class="dashboard-page">
     <header>
         <div class="logo">
             <img src="../assets/images/logo.png" alt="RutaLibre Logo">
         </div>
         <!-- Enlaces de navegación -->
-        <div class="nav-links">
-            <a href="dashboard.php" class="nav-link">Viajes</a>
-            <a href="#" class="nav-link">Asistencia técnica</a>
+        <div class="header-right">
+            <a href="index.php" class="register-btn">Inicio</a>
+            <a href="asistencia_tecnica.php" class="register-btn">Asistencia técnica</a>
         </div>
         <!-- Menú de usuario -->
         <div class="user-menu">
@@ -46,10 +45,10 @@ $userId = $_SESSION['user_id'];
         </div>
     </header>
 
-
     <!-- Contenido principal -->
     <div class="container mt-5">
-        <h2 class="mb-4">Tus viajes</h2>
+        <h1 class="mb-4">Tus viajes</h1>
+        <input type="hidden" value="<?php echo $userId; ?>" id="userId">
         <!-- Botón para añadir un viaje -->
         <div class="mt-4">
             <a href="crear_viaje.php" class="btn btn-primary">+ Añadir un viaje</a>
@@ -70,6 +69,7 @@ $userId = $_SESSION['user_id'];
         </ul>
 
         <div class="tab-content" id="myTabContent">
+            <!-- Próximos viajes -->
             <div class="tab-pane fade show active" id="proximos-viajes" role="tabpanel"
                 aria-labelledby="proximos-viajes-tab">
                 <div class="table-responsive mt-3">
@@ -90,10 +90,27 @@ $userId = $_SESSION['user_id'];
                     </table>
                 </div>
             </div>
-            <div class="tab-pane fade" id="viajes-anteriores" role="tabpanel" aria-labelledby="viajes-anteriores-tab">
-                <!-- Contenido para viajes anteriores -->
-            </div>
 
+            <!-- Viajes anteriores -->
+            <div class="tab-pane fade" id="viajes-anteriores" role="tabpanel" aria-labelledby="viajes-anteriores-tab">
+                <div class="table-responsive mt-3">
+                    <table class="table table-striped" id="tablaViajesAnteriores">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Fecha Inicio</th>
+                                <th>Fecha Final</th>
+                                <th>Presupuesto</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaViajesAnterioresBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <!-- Formulario de edición -->
             <div id="editViajeFormContainer" style="display:none;">
                 <h1 id="formTitle">Editar Viaje</h1>
@@ -136,11 +153,13 @@ $userId = $_SESSION['user_id'];
             </div>
         </div>
 
+        <div id="messageContainer" class="alert" style="display: none;"></div>
 
-    <script src="../js/viajes_usuario.js"></script>
-    <script>
+        <script src="../js/viajes_usuario.js"></script>
+        <script>
             cargarProximosViajes(<?php echo $userId; ?>);
-    </script>
+            cargarViajesAnteriores(<?php echo $userId; ?>);
+        </script>
 
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>

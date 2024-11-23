@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php if (isset($success)): ?>
                 <a href="auth_login.php" class="btn btn-primary">Iniciar sesión</a>
             <?php else: ?>
-                <a href="index.html" class="btn btn-secondary">Volver a Inicio</a>
+                <a href="index.php" class="btn btn-secondary">Volver a Inicio</a>
             <?php endif; ?>
         </div>
     </div>

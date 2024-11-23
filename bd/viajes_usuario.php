@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['userId']) && isset($_GE
                     v.id_viaje,
                     v.nombre_viaje,
                     v.fecha_inicio,
-                    v.fecha_final,
+                    v.fecha_final, 
                     v.presupuesto_base,
                     v.estado,
                     v.fecha_creacion
@@ -36,6 +36,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['userId']) && isset($_GE
             echo json_encode($result);
         } catch (PDOException $e) {
             echo json_encode(["error" => "Error al obtener próximos viajes: " . $e->getMessage()]);
+        }
+    } elseif ($method === 'getViajesAnteriores') {  // Aquí es donde debes agregar el nuevo método
+        try {
+            $stmt = $conn->prepare("
+                 SELECT
+                     v.id_viaje,
+                     v.nombre_viaje,
+                     v.fecha_inicio,
+                     v.fecha_final,
+                     v.presupuesto_base,
+                     v.estado,
+                     v.fecha_creacion
+                 FROM
+                     viajes v
+                 WHERE
+                     v.id_usuario = :userId
+                     AND v.fecha_inicio < CURDATE()
+                 ORDER BY
+                     v.fecha_inicio DESC
+             ");
+            $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            echo json_encode($result);
+        } catch (PDOException $e) {
+            echo json_encode(["error" => "Error al obtener viajes anteriores: " . $e->getMessage()]);
         }
     } else {
         echo json_encode(["error" => "Método no soportado."]);

@@ -83,9 +83,9 @@ try {
 </head>
 
 <body>
-    <div class="container mt-5">
-        <h2 class="mb-4 text-center">Configuración de Perfil</h2>
-
+<div class="container">
+        <div class="profile-container">
+            <h1 class="text-center mb-4">Configuración de Perfil</h1>
         <!-- Mostrar mensajes de éxito o error -->
         <?php if ($message): ?>
             <div class="alert alert-info">
@@ -114,7 +114,7 @@ try {
 
             <hr>
 
-            <h5>Cambiar Contraseña</h5>
+            <h2>Cambiar Contraseña</h2>
             <div class="mb-3">
                 <label for="password" class="form-label">Contraseña Actual</label>
                 <input type="password" name="password" id="password" class="form-control">
