@@ -96,12 +96,12 @@ try {
         <form method="POST" action="configuracion_perf.php">
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" name="nombre" id="nombre" class="form-control" value="<?php echo htmlspecialchars($user['nombre']); ?>" required>
+                <input type="text" name="nombre" id="nombre" class="form-control" value="<?php echo htmlspecialchars($user['nombre']); ?>" >
             </div>
 
             <div class="mb-3">
                 <label for="apellido" class="form-label">Apellidos</label>
-                <input type="text" name="apellido" id="apellido" class="form-control" value="<?php echo htmlspecialchars($user['apellido']); ?>" required>
+                <input type="text" name="apellido" id="apellido" class="form-control" value="<?php echo htmlspecialchars($user['apellido']); ?>" >
             </div>
 
             <div class="mb-3">

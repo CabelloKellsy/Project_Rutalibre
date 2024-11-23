@@ -45,8 +45,6 @@ function formatDate(dateString) {
 cargarProximosViajes(userId);
 
 
-
-
 async function editViaje(idViaje) {
     try {
         const response = await fetch(`../bd/viajes_insert.php?id_viaje=${idViaje}`);
