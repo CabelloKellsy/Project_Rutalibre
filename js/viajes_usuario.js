@@ -18,9 +18,9 @@ async function cargarProximosViajes(userId) {
                 <td>${viaje.presupuesto_base}</td>
                 <td>${viaje.estado}</td>
                 <td>
-                    <button onclick="añadiractividades(${viaje.id_viaje})" class="btn btn-sm btn-danger">Añadir actividades</button
                     <button onclick="editViaje(${viaje.id_viaje})" class="btn btn-sm btn-warning">Editar</button>
                     <button onclick="deleteViaje(${viaje.id_viaje})" class="btn btn-sm btn-danger">Eliminar</button>
+                    <button onclick="añadiractividades(${viaje.id_viaje})" class="btn btn-sm btn-danger">Añadir actividades</button
                 </td>
             `;
             tbody.appendChild(tr);
