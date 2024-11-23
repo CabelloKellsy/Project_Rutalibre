@@ -152,7 +152,8 @@ $userId = $_SESSION['user_id'];
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="destino">Destino:</label>
-                                    <input type="text" class="form-control" id="destino" name="destino" placeholder="Destino">
+                                    <input type="text" class="form-control" id="destino" name="destino"
+                                        placeholder="Destino">
                                     <div class="invalid-feedback">Por favor, introduce el destino.</div>
                                 </div>
                                 <div class="mb-3">
@@ -161,6 +162,7 @@ $userId = $_SESSION['user_id'];
                                         <option value="Planificado">Planificado</option>
                                         <option value="En Curso">En Curso</option>
                                         <option value="Finalizado">Finalizado</option>
+
                                     </select>
                                     <div class="invalid-feedback">Por favor, selecciona el estado.</div>
                                 </div>

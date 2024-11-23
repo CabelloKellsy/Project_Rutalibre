@@ -24,10 +24,44 @@ $idViaje = $_GET['id_viaje'];
     <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.3/sweetalert2.min.css" rel="stylesheet">
     <!-- FontAwesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Encabezado */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #fff;
+            color: #333;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        .header-right a {
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 70px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+ 
+    </style>
+
 </head>
 
 <body>
-
+    <header>
+        <div class="logo">
+            <img src="../assets/images/logo.png" alt="RutaLibre Logo">
+        </div>
+    </header>
     <!-- Modal para crear/editar actividades -->
     <div class="modal fade" id="modalActividad" tabindex="-1" aria-labelledby="modalActividadLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -86,7 +120,7 @@ $idViaje = $_GET['id_viaje'];
 
     <script>
         // Cuando el documento esté listo, cargar las actividades
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             cargarActividades(<?php echo $idViaje; ?>);
         });
     </script>
