@@ -21,8 +21,6 @@ function cargarProximosViajes(userId) {
                     <td>${formatDate(viaje.fecha_final)}</td>
                     <td>${viaje.presupuesto_base}</td>
                     <td>${viaje.estado}</td>
-                    <td>${viaje.id_usuario}</td>
-                    <td>${viaje.fecha_creacion}</td>
                     <td>
                         <button onclick="editViaje(${viaje.id_viaje})" class="btn btn-sm btn-warning">Editar</button>
                         <button onclick="deleteViaje(${viaje.id_viaje})" class="btn btn-sm btn-danger">Eliminar</button>

@@ -929,6 +929,61 @@ h2 {
     /* Alinea el texto de derechos reservados a la derecha */
 }
 
+/* Formulario de Crear Viaje */
+.crear-viaje-form {
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro semi-transparente */
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 600px;
+    margin: auto;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.crear-viaje-form h2 {
+    margin-bottom: 20px;
+    color: #ff7f50; /* Color destacado para el título */
+    text-align: center;
+}
+
+.crear-viaje-form .form-control {
+    background-color: #fff;
+    color: #333;
+}
+
+.crear-viaje-form .form-label {
+    color: #fff;
+}
+
+.crear-viaje-form .btn-primary {
+    background-color: #ff7f50;
+    border: none;
+}
+
+.crear-viaje-form .btn-primary:hover {
+    background-color: #ff6530;
+}
+
+.crear-viaje-form .btn-secondary {
+    background-color: #00bcd4;
+    border: none;
+}
+
+.crear-viaje-form .btn-secondary:hover {
+    background-color: #0097a7;
+}
+
+.crear-viaje-form .btn {
+    transition: background-color 0.3s ease;
+}
+
+.crear-viaje-form .form-control {
+    transition: box-shadow 0.3s ease;
+}
+
+.crear-viaje-form .form-control:focus {
+    box-shadow: 0 0 5px rgba(255, 127, 80, 0.5);
+}
 
 
 /* Ajustes para pantallas pequeñas */

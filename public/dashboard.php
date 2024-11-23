@@ -82,8 +82,6 @@ $userId = $_SESSION['user_id'];
                                 <th>Fecha Final</th>
                                 <th>Presupuesto</th>
                                 <th>Estado</th>
-                                <th>Id del Usuario</th>
-                                <th>Fecha de creación</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
