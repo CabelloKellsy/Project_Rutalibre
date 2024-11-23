@@ -153,6 +153,8 @@ $userId = $_SESSION['user_id'];
             </div>
         </div>
 
+
+
         <div id="messageContainer" class="alert" style="display: none;"></div>
 
         <script src="../js/viajes_usuario.js"></script>
